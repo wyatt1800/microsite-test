@@ -1,53 +1,46 @@
-# fe-llm-starter
+# W9Helper
 
-A Claude Code setup kit for spinning up new micro sites. **This repo contains no application code** — just the conventions, prompts, and config you point Claude at when starting (or working on) a micro site.
+Microsite for [w9helper.com](https://w9helper.com) — generate and understand your W-9 form in minutes.
 
-## What's in here
+Bootstrapped from [fe-llm-starter](https://github.com/1-800Accountant/fe-llm-starter). See [stack.md](https://github.com/1-800Accountant/fe-llm-starter/blob/master/stack.md) for architectural decisions.
 
-- [`stack.md`](stack.md) — the opinionated tech stack every micro site uses (Astro + Vite + Tailwind + MDX + AWS Amplify) and why.
-- [`bootstrap.md`](bootstrap.md) — the prompt to paste into Claude in an empty directory to scaffold a new site.
-- [`CLAUDE.md`](CLAUDE.md) — general coding principles Claude should follow when working **in this repo** (fe-llm-starter itself).
-- [`templates/`](templates/) — files **copied into every new micro site** during bootstrap: the site's `CLAUDE.md`, a SessionStart hook that surfaces drift from this repo, and the `/refresh-starter` slash command that pulls updates back in.
-- `recipes/` *(coming soon)* — task-by-task checklists Claude can be pointed at: adding a page, wiring an MDX collection, deploying to Vercel, calling the Claude API from a route, etc.
+## Local development
 
-## How to use it
+1. Copy `.env.example` to `.env` and fill in real values:
+   ```sh
+   cp .env.example .env
+   ```
+2. Install dependencies and start the dev server:
+   ```sh
+   npm install
+   npm run dev
+   ```
 
-### Starting a new micro site
+## Amplify environment variables
 
-Every micro site lives in a GitHub repo named **`microsite-{name}`** under the `1-800Accountant` org. Those repos are pre-created with your access already wired in — don't create them yourself.
+Set the following in the Amplify console under **App settings → Environment variables** (or per-branch under **Branch settings**):
 
-```bash
-gh repo clone 1-800Accountant/microsite-{name}
-cd microsite-{name}
-claude
-```
+| Variable | Description |
+|---|---|
+| `_CUSTOM_IMAGE` | **Required.** Set to `amplify:al2023` so Amplify uses Node 22. |
+| `PUBLIC_GA4_MEASUREMENT_ID` | GA4 measurement ID for this site. |
+| `PUBLIC_GTM_CONTAINER_ID` | GTM container ID for this site. |
+| `SENDGRID_API_KEY` | SendGrid API key — server-side only. |
 
-Then in Claude, paste the prompt from [`bootstrap.md`](bootstrap.md). Claude scaffolds the project end-to-end (Astro + Tailwind + MDX + Amplify adapter), wires up `.mcp.json` with the Astro/shadcn/Zod MCPs, drops in the self-syncing CLAUDE.md from `templates/`, and pushes the initial commit. You don't run any `git` commands manually.
+> **Never** put a real secret in any committed file. If you accidentally commit a secret, rotate the key immediately.
 
-### Working on an existing micro site
+## Editor integration
 
-Every site bootstrapped from this repo has a self-contained CLAUDE.md that captures the current non-negotiables, so Claude follows them automatically without you having to point at fe-llm-starter every session.
+This project uses [oxlint](https://oxc.rs/docs/guide/usage/linter.html) and [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html) instead of ESLint/Prettier. Install the [OXC VS Code extension](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode) for in-editor linting and formatting.
 
-You'll still find yourself referencing this repo when you want depth: *"check fe-llm-starter/stack.md for the rationale"* or *"follow fe-llm-starter/recipes/new-page.md"*.
+## Scripts
 
-### Keeping a micro site current with the starter
-
-When you change `templates/CLAUDE.md` (or anything else under `templates/`) in this repo and push, every micro site automatically detects the drift:
-
-1. The SessionStart hook in each micro site (`.claude/hooks/check-starter-version.sh`) runs at the start of every Claude session and compares the site's pinned SHA (in `.starter-version`) against the latest fe-llm-starter HEAD.
-2. If they differ, Claude prints a one-line warning telling the user how many commits behind they are and to run `/refresh-starter`.
-3. `/refresh-starter` re-fetches `templates/` from this repo, regenerates the site's CLAUDE.md (preserving its "Site-specific" section), updates the hook and slash command in place, and bumps `.starter-version`.
-
-The hook is silent when there's no drift and never blocks a session — if `gh` isn't installed or the network is down, it just exits 0.
-
-## Working with Claude
-
-A few habits that make these micro sites go faster:
-
-- **Opus for planning, Sonnet for coding.** Switch with `/model opus` when you're starting a new feature, scoping a refactor, or untangling a bug — Opus is better at thinking through the whole problem before code lands. Drop back to `/model sonnet` once the plan is clear and you're executing on it. Sonnet is faster and cheaper for the mechanical work of writing and editing files.
-- **Lean on the MCPs.** Every micro site has Astro, shadcn, and Zod MCP servers wired up in `.mcp.json`, so Claude can answer "is this still the current Astro API?" or "what props does this shadcn component take?" without guessing from training data. AWS Amplify doesn't publish an MCP — point Claude at the official Astro AWS deploy guide when deployment questions come up.
-- **Point Claude at this repo, not at memory.** When working on a micro site, say "check `fe-llm-starter/stack.md`" or "follow the recipe in `fe-llm-starter/recipes/new-page.md`" rather than re-explaining conventions. That's what this repo is for.
-
-## Contributing
-
-If you find yourself giving Claude the same instructions on multiple micro sites, that's a signal to add a recipe here. Patterns belong in this repo; one-off decisions stay in the individual site's `CLAUDE.md`.
+| Command | Description |
+|---|---|
+| `npm run dev` | Start local dev server |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build locally |
+| `npm run lint` | Lint with oxlint |
+| `npm run lint:fix` | Auto-fix lint issues |
+| `npm run format` | Format with oxfmt |
+| `npm run format:check` | Check formatting without writing |
