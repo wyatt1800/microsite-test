@@ -1,0 +1,51 @@
+---
+interface Props {
+  currentPath?: string;
+}
+const { currentPath = '/' } = Astro.props;
+---
+
+<nav style="background-color: var(--color-navy);" class="sticky top-0 z-50">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6">
+    <div class="flex h-16 items-center justify-between">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 min-w-0">
+        <!-- Logo mark: blue rounded square with italic W -->
+        <span
+          style="background-color: var(--color-blue); border-radius: 9px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"
+        >
+          <span style="font-family: 'DM Serif Display', Georgia, serif; font-style: italic; color: #fff; font-size: 20px; line-height: 1; margin-top: 1px;">W</span>
+        </span>
+        <!-- Wordmark -->
+        <span style="font-family: 'DM Sans', system-ui, sans-serif; font-weight: 600; font-size: 17px; white-space: nowrap;">
+          <span style="color: #fff;">W9 </span><span style="color: var(--color-blue-mid);">Helper</span>
+        </span>
+      </a>
+
+      <!-- Nav links -->
+      <div class="flex items-center gap-6">
+        <a
+          href="/#how-it-works"
+          style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; font-weight: 500; color: var(--color-slate-mid); text-decoration: none;"
+          class="hover:text-white transition-colors"
+        >
+          How it works
+        </a>
+        <a
+          href="/guides"
+          style={`font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; font-weight: 500; text-decoration: none; color: ${currentPath.startsWith('/guides') ? '#fff' : 'var(--color-slate-mid)'};`}
+          class="hover:text-white transition-colors"
+        >
+          Guides
+        </a>
+        <a
+          href="/form"
+          style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 600; background-color: var(--color-blue); color: #fff; padding: 8px 18px; border-radius: 8px; text-decoration: none;"
+          class="hover:opacity-90 transition-opacity hidden sm:inline-flex"
+        >
+          Start your W-9 →
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

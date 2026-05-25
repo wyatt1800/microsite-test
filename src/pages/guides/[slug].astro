@@ -1,0 +1,278 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map(guide => ({
+    params: { slug: guide.id },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+
+const allGuides = (await getCollection('guides')).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
+);
+const currentIndex = allGuides.findIndex(g => g.id === guide.id);
+const prevGuide = currentIndex > 0 ? allGuides[currentIndex - 1] : null;
+const nextGuide = currentIndex < allGuides.length - 1 ? allGuides[currentIndex + 1] : null;
+
+const highlights = guide.data.highlights ?? [];
+---
+
+<BaseLayout title={`${guide.data.title} — W9 Helper`} description={guide.data.description}>
+  <Nav currentPath="/guides" />
+
+  <main>
+    <div style="padding: 52px 24px 80px; background-color: var(--color-off-white);">
+      <div class="mx-auto max-w-3xl">
+
+        <!-- Breadcrumb -->
+        <nav style="margin-bottom: 28px;" aria-label="Breadcrumb">
+          <ol style="display: flex; align-items: center; gap: 8px; list-style: none; margin: 0; padding: 0; font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; color: var(--color-text-muted);">
+            <li><a href="/" style="color: var(--color-blue); text-decoration: none;">W9 Helper</a></li>
+            <li aria-hidden="true">›</li>
+            <li><a href="/guides" style="color: var(--color-blue); text-decoration: none;">Guides</a></li>
+            <li aria-hidden="true">›</li>
+            <li style="color: var(--color-text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 240px;">{guide.data.title}</li>
+          </ol>
+        </nav>
+
+        <!-- Article -->
+        <article
+          style="background: #fff; border: 1px solid var(--color-border-brand); border-radius: 16px; overflow: hidden; box-shadow: 0 1px 4px rgba(15,23,42,0.06);"
+        >
+          <!-- Article header band -->
+          <div style="padding: 36px 36px 0;">
+            <h1
+              style="font-family: 'DM Serif Display', Georgia, serif; font-size: 30px; color: var(--color-text-primary); margin: 0 0 14px; line-height: 1.22;"
+            >
+              {guide.data.title}
+            </h1>
+            <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; color: var(--color-text-secondary); margin: 0; line-height: 1.65;">
+              {guide.data.description}
+            </p>
+          </div>
+
+          <!-- Key highlights box -->
+          {highlights.length > 0 && (
+            <div style="margin: 28px 36px 0; background: var(--color-blue-light); border: 1px solid var(--color-blue-mid); border-radius: 12px; padding: 20px 22px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <span style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; font-weight: 700; color: var(--color-blue); text-transform: uppercase; letter-spacing: 0.07em;">Key highlights</span>
+              </div>
+              <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                {highlights.map((point: string) => (
+                  <li style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>
+                      <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 14, color: 'var(--color-text-primary)', lineHeight: 1.55 }}>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <!-- Divider -->
+          <div style="margin: 28px 36px 0; border-top: 1px solid var(--color-border-brand);"></div>
+
+          <!-- MDX content -->
+          <div class="guide-content" style="padding: 28px 36px 36px;">
+            <Content />
+          </div>
+        </article>
+
+        <!-- Prev / Next navigation -->
+        {(prevGuide || nextGuide) && (
+          <nav style="display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap;" aria-label="Guide navigation">
+            {prevGuide && (
+              <a
+                href={`/guides/${prevGuide.id}`}
+                style="flex: 1; min-width: 200px; display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--color-border-brand); border-radius: 10px; padding: 14px 18px; text-decoration: none; transition: border-color 0.15s, box-shadow 0.15s;"
+                class="hover:border-blue-300 hover:shadow-sm"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                  <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                <div>
+                  <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; color: var(--color-text-muted); margin: 0 0 2px; text-transform: uppercase; letter-spacing: 0.05em;">Previous</p>
+                  <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 500; margin: 0; color: var(--color-blue);">
+                    {prevGuide.data.title}
+                  </p>
+                </div>
+              </a>
+            )}
+            {nextGuide && (
+              <a
+                href={`/guides/${nextGuide.id}`}
+                style="flex: 1; min-width: 200px; display: flex; align-items: center; justify-content: flex-end; gap: 10px; background: #fff; border: 1px solid var(--color-border-brand); border-radius: 10px; padding: 14px 18px; text-decoration: none; transition: border-color 0.15s, box-shadow 0.15s; text-align: right;"
+                class="hover:border-blue-300 hover:shadow-sm"
+              >
+                <div>
+                  <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; color: var(--color-text-muted); margin: 0 0 2px; text-transform: uppercase; letter-spacing: 0.05em;">Next</p>
+                  <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 500; margin: 0; color: var(--color-blue);">
+                    {nextGuide.data.title}
+                  </p>
+                </div>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+            )}
+          </nav>
+        )}
+
+        <!-- CTA -->
+        <div
+          style="margin-top: 24px; background-color: var(--color-navy); border-radius: 14px; padding: 28px 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px;"
+        >
+          <div>
+            <p style="font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: #fff; margin: 0 0 6px; line-height: 1.2;">
+              Ready to fill out your W-9?
+            </p>
+            <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; color: rgba(203,213,225,0.7); margin: 0;">
+              Takes about three minutes. Free PDF download.
+            </p>
+          </div>
+          <a
+            href="/form"
+            style="display: inline-flex; align-items: center; gap: 7px; background-color: var(--color-blue); color: #fff; font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; font-weight: 600; padding: 12px 22px; border-radius: 8px; text-decoration: none; flex-shrink: 0; box-shadow: 0 4px 16px rgba(37,99,235,0.4);"
+            class="hover:opacity-90 transition-opacity"
+          >
+            Start your W-9
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  .guide-content {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.78;
+    color: var(--color-text-secondary);
+  }
+
+  .guide-content h2 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 42px 0 14px;
+    padding-left: 14px;
+    border-left: 3px solid var(--color-blue);
+    line-height: 1.3;
+  }
+
+  .guide-content h3 {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 30px 0 10px;
+    line-height: 1.4;
+  }
+
+  .guide-content p {
+    margin: 0 0 20px;
+  }
+
+  .guide-content ul,
+  .guide-content ol {
+    padding-left: 22px;
+    margin: 0 0 16px;
+  }
+
+  .guide-content li {
+    margin-bottom: 7px;
+  }
+
+  .guide-content strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
+  .guide-content a {
+    color: var(--color-blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .guide-content a:hover {
+    opacity: 0.8;
+  }
+
+  .guide-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 22px 0;
+    font-size: 14px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--color-border-brand);
+  }
+
+  .guide-content th {
+    text-align: left;
+    padding: 10px 16px;
+    background-color: var(--color-slate-light);
+    color: var(--color-text-primary);
+    font-weight: 600;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--color-border-brand);
+  }
+
+  .guide-content td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--color-border-brand);
+    color: var(--color-text-secondary);
+    vertical-align: top;
+  }
+
+  .guide-content tr:last-child td {
+    border-bottom: none;
+  }
+
+  .guide-content tr:hover td {
+    background-color: var(--color-off-white);
+  }
+
+  .guide-content blockquote {
+    border-left: 3px solid var(--color-blue-mid);
+    margin: 22px 0;
+    padding: 14px 20px;
+    background-color: var(--color-blue-light);
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+  }
+
+  .guide-content code {
+    font-family: ui-monospace, monospace;
+    font-size: 13px;
+    background-color: var(--color-slate-light);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .guide-content hr {
+    border: none;
+    border-top: 1px solid var(--color-border-brand);
+    margin: 32px 0;
+  }
+</style>

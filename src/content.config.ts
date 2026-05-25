@@ -1,14 +1,15 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-// Define content collections here using Astro v6 loaders.
-// Example:
-// const blog = defineCollection({
-//   loader: glob({ pattern: '**/*.mdx', base: './src/content/blog' }),
-//   schema: z.object({
-//     title: z.string(),
-//     pubDate: z.date(),
-//   }),
-// });
+const guides = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/guides' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.date(),
+    order: z.number().optional(),
+    highlights: z.array(z.string()).optional(),
+  }),
+});
 
-export const collections = {};
+export const collections = { guides };

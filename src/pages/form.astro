@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import W9FormIsland from '../components/W9FormIsland';
+---
+
+<BaseLayout
+  title="Fill Out Your W-9 — W9 Helper"
+  description="Complete your W-9 form online for free. Clear guidance at every field, download your PDF in minutes."
+>
+  <Nav currentPath="/form" />
+
+  <main>
+    <section style="padding: 60px 24px 88px; background-color: var(--color-off-white); min-height: calc(100vh - 64px);">
+      <div class="mx-auto max-w-2xl">
+
+        <div style="text-align: center; margin-bottom: 40px;">
+          <h1 style="font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(26px, 4vw, 36px); color: var(--color-text-primary); margin: 0 0 12px; line-height: 1.2;">
+            Fill Out Your W-9
+          </h1>
+          <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; color: var(--color-text-secondary); margin: 0; line-height: 1.65; max-width: 400px; margin-left: auto; margin-right: auto;">
+            Clear guidance at every field. Most people finish in under 3 minutes.
+          </p>
+        </div>
+
+        <div style="background: #fff; border: 1px solid var(--color-border-brand); border-radius: 16px; padding: 40px 36px; box-shadow: 0 4px 24px rgba(15,23,42,0.08);">
+          <W9FormIsland client:load />
+        </div>
+
+        <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; color: var(--color-text-muted); text-align: center; margin: 20px 0 0; line-height: 1.6;">
+          Your SSN or EIN is used only to generate your PDF and never leaves your browser.
+        </p>
+
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

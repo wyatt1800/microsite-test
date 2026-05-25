@@ -1,0 +1,166 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy — W9 Helper"
+  description="W9 Helper privacy policy: what data we collect, how we use it, and how your SSN/EIN is protected."
+>
+  <Nav />
+
+  <main>
+    <div style="padding: 52px 24px 80px; background-color: var(--color-off-white);">
+      <div class="mx-auto max-w-3xl">
+
+        <div style="background: #fff; border: 1px solid var(--color-border-brand); border-radius: 16px; padding: 40px 36px; box-shadow: 0 1px 4px rgba(15,23,42,0.06);">
+
+          <h1 style="font-family: 'DM Serif Display', Georgia, serif; font-size: 30px; color: var(--color-text-primary); margin: 0 0 8px;">
+            Privacy Policy
+          </h1>
+          <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; color: var(--color-text-muted); margin: 0 0 32px; border-bottom: 1px solid var(--color-border-brand); padding-bottom: 24px;">
+            Last updated: January 1, 2026
+          </p>
+
+          <div class="policy-content">
+
+            <h2>About W9 Helper</h2>
+            <p>
+              W9 Helper ("we," "our," or "the site") is a free, independent web tool that helps individuals and businesses complete IRS Form W-9 and download a PDF. W9 Helper is not affiliated with, endorsed by, or connected to the Internal Revenue Service or any government agency.
+            </p>
+
+            <h2>What data we collect</h2>
+
+            <h3>Form data (never transmitted to our servers)</h3>
+            <p>
+              When you use the W-9 form tool, all data you enter (including your name, address, and Taxpayer Identification Number) is processed entirely within your browser. This data is used only to generate your PDF and is never transmitted to our servers, stored in any database, or shared with any third party.
+            </p>
+            <p>
+              We do not have access to your SSN, EIN, or any other information you enter into the form tool.
+            </p>
+
+            <h3>Email and lead capture (optional)</h3>
+            <p>
+              After downloading your W-9 PDF, you may optionally provide your name, email address, and a brief description of how you use the form. This information is:
+            </p>
+            <ul>
+              <li>Collected only with your explicit consent (you choose to enter it).</li>
+              <li>Used to send you a copy of your W-9 and educational information about freelance taxes.</li>
+              <li>Stored securely with our email service provider (SendGrid/Twilio).</li>
+              <li>Never sold to third parties.</li>
+            </ul>
+            <p>
+              Providing your email is optional. You can always download your W-9 directly without submitting any contact information.
+            </p>
+
+            <h3>Analytics</h3>
+            <p>
+              We use Google Analytics 4 (via Google Tag Manager) to understand how visitors use the site. Analytics data includes page views, general location (country/region), device type, and traffic source. This data is aggregated and anonymized. It does not include any W-9 form data.
+            </p>
+            <p>
+              You can opt out of Google Analytics by using the <a href="https://tools.google.com/dlpage/gaoptout">Google Analytics opt-out browser add-on</a> or by enabling "Do Not Track" in your browser.
+            </p>
+
+            <h3>Log data</h3>
+            <p>
+              Like most websites, our hosting provider may automatically collect standard server log data including your IP address, browser type, referring URL, and timestamps. This data is used for security and operational purposes and is not linked to your identity or form data.
+            </p>
+
+            <h2>How we use the data we collect</h2>
+            <ul>
+              <li>To deliver the service (generate your W-9 PDF in-browser).</li>
+              <li>To send you educational content about freelance taxes, if you opt in.</li>
+              <li>To understand how the site is used and improve it.</li>
+              <li>To comply with legal obligations.</li>
+            </ul>
+
+            <h2>Data sharing</h2>
+            <p>We do not sell your personal information. We share data only as follows:</p>
+            <ul>
+              <li><strong>Service providers:</strong> SendGrid (email delivery) and Google (analytics). These providers have their own privacy policies and process data under our instructions.</li>
+              <li><strong>Legal requirements:</strong> We may disclose information if required by law or to protect the rights and safety of our users or others.</li>
+            </ul>
+
+            <h2>Cookies</h2>
+            <p>
+              We use cookies primarily through Google Analytics for site analytics. These are first-party analytics cookies. We do not use advertising cookies or tracking pixels for ad targeting.
+            </p>
+
+            <h2>Your rights</h2>
+            <p>Depending on your location, you may have rights to access, correct, or delete personal information we hold about you. To exercise any of these rights, contact us at:</p>
+            <p><a href="mailto:privacy@w9helper.com">privacy@w9helper.com</a></p>
+
+            <h2>Children's privacy</h2>
+            <p>
+              W9 Helper is not directed at children under 13. We do not knowingly collect personal information from children. If you believe we have inadvertently collected such data, please contact us.
+            </p>
+
+            <h2>Changes to this policy</h2>
+            <p>
+              We may update this policy from time to time. The "last updated" date at the top of this page reflects the most recent revision. Continued use of the site after any changes constitutes acceptance of the updated policy.
+            </p>
+
+            <h2>Contact</h2>
+            <p>
+              Questions about this privacy policy? Email us at <a href="mailto:privacy@w9helper.com">privacy@w9helper.com</a>.
+            </p>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .policy-content {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--color-text-secondary);
+  }
+
+  .policy-content h2 {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 32px 0 10px;
+  }
+
+  .policy-content h3 {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 22px 0 8px;
+  }
+
+  .policy-content p {
+    margin: 0 0 14px;
+  }
+
+  .policy-content ul {
+    padding-left: 22px;
+    margin: 0 0 14px;
+  }
+
+  .policy-content li {
+    margin-bottom: 6px;
+  }
+
+  .policy-content strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
+  .policy-content a {
+    color: var(--color-blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

@@ -7,7 +7,8 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'W9Helper — generate and understand your W-9 form in minutes.' } = Astro.props;
+const { title, description = 'Fill out your W-9 form online for free. No account required. Complete your W-9 and download the PDF in minutes.' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://w9helper.com');
 ---
 
 <!doctype html>
@@ -16,8 +17,29 @@ const { title, description = 'W9Helper — generate and understand your W-9 form
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="W9 Helper" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Google Fonts: DM Serif Display + DM Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Google Tag Manager -->
     {env.PUBLIC_GTM_CONTAINER_ID && (
@@ -38,7 +60,7 @@ const { title, description = 'W9Helper — generate and understand your W-9 form
       </script>
     )}
   </head>
-  <body class="min-h-screen bg-background text-foreground antialiased">
+  <body class="min-h-screen antialiased" style="background-color: var(--color-off-white); color: var(--color-text-primary); font-family: 'DM Sans', system-ui, sans-serif;">
     <!-- Google Tag Manager (noscript) -->
     {env.PUBLIC_GTM_CONTAINER_ID && (
       <noscript>

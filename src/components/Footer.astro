@@ -1,0 +1,39 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer style="background-color: var(--color-navy); border-top: 1px solid rgba(255,255,255,0.08);" class="mt-auto">
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 py-10">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+
+      <!-- Logo -->
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <span
+          style="background-color: var(--color-blue); border-radius: 9px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;"
+        >
+          <span style="font-family: 'DM Serif Display', Georgia, serif; font-style: italic; color: #fff; font-size: 15px; line-height: 1;">W</span>
+        </span>
+        <span style="font-family: 'DM Sans', system-ui, sans-serif; font-weight: 600; font-size: 15px;">
+          <span style="color: #fff;">W9 </span><span style="color: var(--color-blue-mid);">Helper</span>
+        </span>
+      </div>
+
+      <!-- Disclaimer -->
+      <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; color: var(--color-text-muted); line-height: 1.6; max-width: 480px;">
+        W9 Helper is a free, independent tool for completing IRS Form W-9. It is not affiliated with,
+        endorsed by, or connected to the Internal Revenue Service or any government agency. This tool
+        does not provide tax, legal, or financial advice.
+      </p>
+
+      <!-- Links -->
+      <div class="flex items-center gap-4 flex-shrink-0" style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; color: var(--color-text-muted);">
+        <a href="/privacy" class="hover:text-white transition-colors" style="color: var(--color-text-muted); text-decoration: none;">Privacy Policy</a>
+        <span aria-hidden="true">·</span>
+        <a href="/terms" class="hover:text-white transition-colors" style="color: var(--color-text-muted); text-decoration: none;">Terms of Use</a>
+        <span aria-hidden="true">·</span>
+        <span>© {year} W9 Helper</span>
+      </div>
+
+    </div>
+  </div>
+</footer>

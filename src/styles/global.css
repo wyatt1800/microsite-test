@@ -1,13 +1,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: var(--font-sans);
-    --font-sans: 'Geist Variable', sans-serif;
+    --font-heading: 'DM Serif Display', Georgia, serif;
+    --font-sans: 'DM Sans', system-ui, sans-serif;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,24 +48,25 @@
 }
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
+    /* shadcn/ui tokens */
+    --background: oklch(0.99 0 0);
+    --foreground: oklch(0.12 0 0);
     --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
+    --card-foreground: oklch(0.12 0 0);
     --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
+    --popover-foreground: oklch(0.12 0 0);
+    --primary: oklch(0.49 0.19 264);
+    --primary-foreground: oklch(1 0 0);
     --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
+    --muted-foreground: oklch(0.45 0 0);
     --accent: oklch(0.97 0 0);
     --accent-foreground: oklch(0.205 0 0);
     --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
+    --border: oklch(0.91 0 0);
+    --input: oklch(0.91 0 0);
+    --ring: oklch(0.49 0.19 264);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
@@ -81,40 +81,29 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
-}
 
-.dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+    /* W9 Helper brand palette */
+    --color-blue: #2563EB;
+    --color-blue-light: #DBEAFE;
+    --color-blue-mid: #93C5FD;
+    --color-navy: #0F1C2E;
+    --color-teal: #0D9488;
+    --color-teal-light: #CCFBF1;
+    --color-slate: #475569;
+    --color-slate-light: #F1F5F9;
+    --color-slate-mid: #CBD5E1;
+    --color-off-white: #F8FAFC;
+    --color-white: #FFFFFF;
+    --color-text-primary: #0F172A;
+    --color-text-secondary: #475569;
+    --color-text-muted: #94A3B8;
+    --color-border-brand: #E2E8F0;
+    --color-success: #059669;
+    --color-success-light: #D1FAE5;
+    --color-warning: #D97706;
+    --color-warning-light: #FEF3C7;
+    --color-error: #DC2626;
+    --color-error-light: #FEE2E2;
 }
 
 @layer base {
@@ -123,8 +112,20 @@
     }
   body {
     @apply bg-background text-foreground;
+    background-color: var(--color-off-white);
+    color: var(--color-text-primary);
     }
   html {
     @apply font-sans;
     }
+}
+
+/* Typography helpers */
+.font-heading {
+  font-family: 'DM Serif Display', Georgia, serif;
+}
+
+.font-heading-italic {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-style: italic;
 }
