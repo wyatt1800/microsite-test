@@ -5,10 +5,38 @@ import { env } from '../lib/env';
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description = 'Fill out your W-9 form online for free. No account required. Complete your W-9 and download the PDF in minutes.' } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://w9helper.com');
+const {
+  title,
+  description = 'Fill out your W-9 form online for free. No account required. Complete your W-9 and download the PDF in minutes.',
+  ogImage,
+  jsonLd,
+} = Astro.props;
+
+const siteOrigin = Astro.site ?? new URL('https://w9helper.com');
+const canonicalURL = new URL(Astro.url.pathname, siteOrigin);
+const ogImageURL = ogImage ? new URL(ogImage, siteOrigin).toString() : undefined;
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'W9 Helper',
+  url: 'https://w9helper.com',
+  description: 'Free W-9 form generator for freelancers and independent contractors.',
+  publisher: {
+    '@type': 'Organization',
+    name: '1-800Accountant',
+    url: 'https://1800accountant.com',
+  },
+};
+
+const pageSchemas: Record<string, unknown>[] = [
+  websiteSchema,
+  ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : []),
+];
 ---
 
 <!doctype html>
@@ -27,11 +55,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://w9helper
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="W9 Helper" />
+    {ogImageURL && <meta property="og:image" content={ogImageURL} />}
+    {ogImageURL && <meta property="og:image:alt" content={title} />}
 
     <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content={ogImageURL ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    {ogImageURL && <meta name="twitter:image" content={ogImageURL} />}
+
+    <!-- JSON-LD structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(pageSchemas)} />
 
     <!-- Google Fonts: DM Serif Display + DM Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

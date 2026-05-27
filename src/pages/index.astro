@@ -2,71 +2,126 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import TaxCalculator from '../components/TaxCalculator';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is a W-9?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "A short IRS form that tells whoever is paying you who you are for tax purposes. You fill it out and give it to them — it never goes to the IRS.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Who needs to fill out a W-9?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Anyone being paid as an independent contractor or freelancer. If a client, platform, or company asked you for one, you need it before they can pay you.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between a W-9 and a W-4?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "A W-4 is for employees and tells your employer how much to withhold. A W-9 is for contractors — no withholding happens, so you're responsible for your own taxes.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What happens after you submit a W-9?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "The payer keeps it on file and uses it to send you a 1099 at year-end if they paid you $600 or more. You don't hear from the IRS directly as a result of submitting a W-9.",
+      },
+    },
+  ],
+};
 ---
 
 <BaseLayout
   title="W9 Helper — Fill Out Your W-9 Form Free, Online"
   description="Fill out your W-9 form online for free. No account required. Complete your W-9 and download the official PDF in minutes."
+  jsonLd={faqSchema}
 >
   <Nav currentPath="/" />
 
   <main>
 
     <!-- ===== HERO ===== -->
-    <section
-      style="background-color: var(--color-navy); position: relative; overflow: hidden; padding: 88px 24px 120px;"
-    >
-      <!-- Decorative orbs -->
-      <div style="position: absolute; top: -120px; right: -120px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(37,99,235,0.22) 0%, transparent 70%); pointer-events: none;"></div>
-      <div style="position: absolute; bottom: -140px; left: -80px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(13,148,136,0.18) 0%, transparent 70%); pointer-events: none;"></div>
+    <section style="background: linear-gradient(155deg, #eef2ff 0%, #dbeafe 28%, #f0f9ff 60%, #f8fafc 100%); padding: 88px 24px 120px; position: relative; overflow: hidden;">
+
+      <!-- Decorative blobs -->
+      <div style="position: absolute; top: -100px; right: -80px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(99,102,241,0.13) 0%, transparent 65%); pointer-events: none;"></div>
+      <div style="position: absolute; bottom: 40px; left: -100px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(59,130,246,0.10) 0%, transparent 65%); pointer-events: none;"></div>
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 320px; border-radius: 50%; background: radial-gradient(ellipse, rgba(186,230,253,0.22) 0%, transparent 60%); pointer-events: none;"></div>
+
+      <!-- Wave bottom edge -->
+      <svg style="position: absolute; bottom: -1px; left: 0; width: 100%;" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40 C180,65 360,15 540,40 C720,65 900,15 1080,40 C1260,65 1380,30 1440,40 L1440,60 L0,60 Z" fill="#ffffff"/>
+      </svg>
 
       <div class="mx-auto max-w-3xl text-center" style="position: relative; z-index: 1;">
 
         <!-- Badge -->
-        <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); border-radius: 100px; padding: 6px 14px; margin-bottom: 28px;">
-          <span style="width: 7px; height: 7px; border-radius: 50%; background-color: #4ade80; flex-shrink: 0;"></span>
-          <span style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 12.5px; color: rgba(255,255,255,0.7); letter-spacing: 0.01em;">
-            Free &nbsp;·&nbsp; No account required &nbsp;·&nbsp; Takes 3 minutes
-          </span>
+        <div style="display: inline-flex; align-items: center; background: rgba(15,23,42,0.05); border: 1px solid rgba(15,23,42,0.09); border-radius: 8px; padding: 7px 16px; margin-bottom: 28px;">
+          <span style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; color: #475569; letter-spacing: 0.01em;">Free</span>
+          <span style="color: #cbd5e1; margin: 0 10px;">·</span>
+          <span style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; color: #475569; letter-spacing: 0.01em;">No account required</span>
+          <span style="color: #cbd5e1; margin: 0 10px;">·</span>
+          <span style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; color: #475569; letter-spacing: 0.01em;">Takes 3 minutes</span>
         </div>
 
         <!-- H1 -->
-        <h1 style="font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(34px, 5.5vw, 52px); line-height: 1.13; color: #fff; margin: 0 0 20px; letter-spacing: -0.01em;">
+        <h1 style="font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(36px, 5.5vw, 56px); line-height: 1.1; color: #0f172a; margin: 0 0 20px; letter-spacing: -0.01em;">
           Fill Out Your W-9 Form<br/>
-          <em style="font-style: italic; color: var(--color-blue-mid);">Free, Online, in Minutes</em>
+          <span style="color: #2563eb;">Free, Online, in Minutes</span>
         </h1>
 
         <!-- Subhead -->
-        <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 17px; color: rgba(203,213,225,0.85); line-height: 1.7; margin: 0 0 36px; max-width: 480px; margin-left: auto; margin-right: auto;">
+        <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 17px; color: #64748b; line-height: 1.7; margin: 0 0 36px; max-width: 480px; margin-left: auto; margin-right: auto;">
           No printing. No login. Complete your W-9 and download a clean PDF ready to send to whoever asked for it.
         </p>
 
-        <!-- CTA -->
-        <a
-          href="/form"
-          style="display: inline-flex; align-items: center; gap: 8px; background-color: var(--color-blue); color: #fff; font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; font-weight: 600; padding: 14px 30px; border-radius: 10px; text-decoration: none; box-shadow: 0 4px 20px rgba(37,99,235,0.4); transition: opacity 0.15s;"
-          class="hover:opacity-90"
-        >
-          Start your W-9
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        <!-- CTAs -->
+        <div style="display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;">
+          <a
+            href="/form"
+            style="display: inline-flex; align-items: center; gap: 8px; background-color: #0f172a; color: #fff; font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; font-weight: 600; padding: 13px 26px; border-radius: 10px; text-decoration: none; box-shadow: 0 1px 4px rgba(15,23,42,0.18);"
+            class="hover:opacity-85 transition-opacity"
+          >
+            Start your W-9
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a
+            href="#how-it-works"
+            style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; font-weight: 500; color: #475569; text-decoration: none;"
+            class="hover:text-slate-800 transition-colors"
+          >
+            How it works
+          </a>
+        </div>
 
         <!-- Browser-chrome product preview -->
-        <div style="margin-top: 56px; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.08); max-width: 580px; margin-left: auto; margin-right: auto;">
+        <div style="margin-top: 56px; border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(15,23,42,0.12), 0 0 0 1px rgba(15,23,42,0.07); max-width: 580px; margin-left: auto; margin-right: auto;">
           <!-- Browser chrome bar -->
-          <div style="background: #1e2d42; padding: 10px 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.07);">
+          <div style="background: #f1f5f9; padding: 10px 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #e2e8f0;">
             <div style="display: flex; gap: 6px;">
-              <span style="width: 10px; height: 10px; border-radius: 50%; background: #ff5f57;"></span>
-              <span style="width: 10px; height: 10px; border-radius: 50%; background: #febc2e;"></span>
-              <span style="width: 10px; height: 10px; border-radius: 50%; background: #28c840;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #fca5a5;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #fcd34d;"></span>
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #86efac;"></span>
             </div>
-            <div style="flex: 1; background: rgba(255,255,255,0.07); border-radius: 5px; padding: 4px 12px; font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; color: rgba(255,255,255,0.35); text-align: center;">
+            <div style="flex: 1; background: #fff; border: 1px solid #e2e8f0; border-radius: 5px; padding: 4px 12px; font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; color: #94a3b8; text-align: center;">
               w9helper.com
             </div>
           </div>
           <!-- Preview content -->
           <div style="background: #f8fafc; padding: 24px 28px;">
-            <!-- Mini progress bar -->
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
               <span style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; color: #94a3b8; font-weight: 500;">Step 1 of 6</span>
               <span style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; color: #94a3b8;">Name &amp; business</span>
@@ -74,7 +129,6 @@ import Footer from '../components/Footer.astro';
             <div style="height: 3px; background: #e2e8f0; border-radius: 2px; margin-bottom: 20px;">
               <div style="width: 16.6%; height: 100%; background: #2563eb; border-radius: 2px;"></div>
             </div>
-            <!-- Mock field -->
             <div style="margin-bottom: 14px;">
               <div style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; font-weight: 500; color: #0f172a; margin-bottom: 5px;">Your full legal name</div>
               <div style="background: #fff; border: 1.5px solid #e2e8f0; border-radius: 6px; padding: 9px 12px; font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; color: #0f172a;">Jane Smith</div>
@@ -84,9 +138,6 @@ import Footer from '../components/Footer.astro';
               <div style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; font-weight: 500; color: #0f172a; margin-bottom: 5px;">Business name / DBA <span style="color: #94a3b8; font-weight: 400;">(optional)</span></div>
               <div style="background: #fff; border: 1.5px solid #e2e8f0; border-radius: 6px; padding: 9px 12px; font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; color: #94a3b8;">e.g. Bright Studio LLC</div>
             </div>
-            <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
-              <div style="background: #2563eb; color: #fff; font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 8px 18px; border-radius: 8px;">Continue →</div>
-            </div>
           </div>
         </div>
 
@@ -94,7 +145,7 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- ===== TRUST BAR ===== -->
-    <section style="background: #fff; border-bottom: 1px solid var(--color-border-brand);">
+    <section style="background: #fff; border-bottom: 1px solid #e2e8f0;">
       <div class="mx-auto max-w-5xl px-6 py-5">
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0 sm:divide-x divide-slate-200">
           {[
@@ -115,9 +166,9 @@ import Footer from '../components/Footer.astro';
               text: '100% free, no catch',
             },
           ].map(item => (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '0 28px' }}>
-              <span style={{ width: 28, height: 28, borderRadius: '50%', backgroundColor: 'var(--color-blue-light)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-blue)', flexShrink: 0 }} set:html={item.icon} />
-              <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 13, color: 'var(--color-text-secondary)', fontWeight: 500, whiteSpace: 'nowrap' }}>
+            <div style="display: flex; align-items: center; padding: 0 28px;">
+              <span style="width: 28px; height: 28px; border-radius: 50%; background-color: #f1f5f9; display: flex; align-items: center; justify-content: center; color: #64748b; flex-shrink: 0; margin-right: 10px;" set:html={item.icon} />
+              <span style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; color: #475569; font-weight: 500; white-space: nowrap;">
                 {item.text}
               </span>
             </div>
@@ -127,15 +178,15 @@ import Footer from '../components/Footer.astro';
     </section>
 
     <!-- ===== HOW IT WORKS ===== -->
-    <section id="how-it-works" style="padding: 80px 24px 88px; background-color: #fff; border-top: 1px solid var(--color-border-brand);">
+    <section id="how-it-works" style="padding: 80px 24px 88px; background-color: #f8fafc; border-top: 1px solid #e2e8f0;">
       <div class="mx-auto max-w-5xl">
 
         <div style="text-align: center; margin-bottom: 52px;">
-          <span style="display: inline-block; font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; color: var(--color-blue); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">W-9 Explained</span>
-          <h2 style="font-family: 'DM Serif Display', Georgia, serif; font-size: 30px; color: var(--color-text-primary); margin: 0 0 12px; line-height: 1.2;">
+          <span style="display: inline-block; font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; color: #2563eb; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">W-9 Explained</span>
+          <h2 style="font-family: 'DM Serif Display', Georgia, serif; font-size: 30px; color: #0f172a; margin: 0 0 12px; line-height: 1.2;">
             What is a W-9, and who needs one?
           </h2>
-          <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; color: var(--color-text-secondary); margin: 0; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+          <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; color: #64748b; margin: 0; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.6;">
             Everything a freelancer or contractor needs to know, in plain English.
           </p>
         </div>
@@ -144,41 +195,44 @@ import Footer from '../components/Footer.astro';
           {[
             {
               icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
-              color: 'var(--color-blue)',
-              bg: 'var(--color-blue-light)',
+              color: '#2563eb',
+              bg: '#eff6ff',
               title: 'What is a W-9?',
               body: "A short IRS form that tells whoever is paying you who you are for tax purposes. You fill it out and give it to them; it never goes to the IRS.",
             },
             {
               icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-              color: 'var(--color-teal)',
-              bg: 'var(--color-teal-light)',
+              color: '#0d9488',
+              bg: '#f0fdfa',
               title: 'Who needs to fill one out?',
               body: 'Anyone being paid as an independent contractor or freelancer. If a client, platform, or company asked you for one, you need it before they can pay you.',
             },
             {
               icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
               color: '#7c3aed',
-              bg: '#ede9fe',
+              bg: '#f5f3ff',
               title: 'W-9 vs. W-4: the difference',
               body: "A W-4 is for employees and tells your employer how much to withhold. A W-9 is for contractors. No withholding happens, so you're responsible for your own taxes.",
             },
             {
               icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
               color: '#d97706',
-              bg: '#fef3c7',
+              bg: '#fffbeb',
               title: 'What happens after you submit?',
               body: "They keep it on file and use it to send you a 1099 at year-end if they paid you $600 or more. You don't hear from the IRS directly as a result of submitting a W-9.",
             },
           ].map(block => (
-            <div style={{ backgroundColor: '#fff', border: '1px solid var(--color-border-brand)', borderRadius: 14, padding: '24px 24px', boxShadow: '0 1px 4px rgba(15,23,42,0.05)', transition: 'box-shadow 0.15s' }} class="hover:shadow-md">
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: block.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: block.color, flexShrink: 0 }} set:html={block.icon} />
+            <div style={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: 14, padding: '24px 24px', boxShadow: '0 1px 3px rgba(15,23,42,0.05)', transition: 'box-shadow 0.15s' }} class="hover:shadow-md">
+              <div style="display: flex; align-items: flex-start;">
+                <div
+                  style={`width: 40px; height: 40px; border-radius: 10px; background-color: ${block.bg}; display: flex; align-items: center; justify-content: center; color: ${block.color}; flex-shrink: 0; margin-right: 20px;`}
+                  set:html={block.icon}
+                />
                 <div>
-                  <h3 style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 15, fontWeight: 600, color: 'var(--color-text-primary)', margin: '0 0 7px', lineHeight: 1.3 }}>
+                  <h3 style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 15, fontWeight: 600, color: '#0f172a', margin: '0 0 7px', lineHeight: 1.3 }}>
                     {block.title}
                   </h3>
-                  <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 14, color: 'var(--color-text-secondary)', lineHeight: 1.7, margin: 0 }}>
+                  <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 14, color: '#64748b', lineHeight: 1.7, margin: 0 }}>
                     {block.body}
                   </p>
                 </div>
@@ -188,7 +242,7 @@ import Footer from '../components/Footer.astro';
         </div>
 
         <div style="text-align: center; margin-top: 44px;">
-          <a href="/guides" class="text-blue-600 hover:text-blue-700" style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; border-bottom: 1px solid rgba(37,99,235,0.3); padding-bottom: 1px;">
+          <a href="/guides" style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; font-weight: 500; color: #2563eb; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; border-bottom: 1px solid rgba(37,99,235,0.3); padding-bottom: 1px;">
             Read more in our W-9 guides
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
@@ -197,10 +251,29 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
+    <!-- ===== TAX CALCULATOR ===== -->
+    <section style="padding: 80px 24px 88px; background-color: #fff; border-top: 1px solid #e2e8f0;">
+      <div class="mx-auto max-w-4xl">
+
+        <div style="text-align: center; margin-bottom: 48px;">
+          <span style="display: inline-block; font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; color: #2563eb; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">Tax Estimator</span>
+          <h2 style="font-family: 'DM Serif Display', Georgia, serif; font-size: 30px; color: #0f172a; margin: 0 0 12px; line-height: 1.2;">
+            Estimate Your Freelance Tax Bill
+          </h2>
+          <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; color: #64748b; margin: 0; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+            W-9 filers pay their own taxes — no withholding. See what you might owe and how much to set aside each quarter.
+          </p>
+        </div>
+
+        <TaxCalculator client:visible />
+
+      </div>
+    </section>
+
     <!-- ===== POST-DOWNLOAD CTA BANNER ===== -->
-    <section style="padding: 72px 24px; background-color: var(--color-navy); border-top: 1px solid rgba(255,255,255,0.06);">
+    <section style="padding: 72px 24px; background-color: #0f172a; border-top: 1px solid rgba(255,255,255,0.06);">
       <div class="mx-auto max-w-2xl text-center">
-        <span style="display: inline-block; font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; color: var(--color-blue-mid); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;">For freelancers &amp; contractors</span>
+        <span style="display: inline-block; font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; color: #93c5fd; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;">For freelancers &amp; contractors</span>
         <h2 style="font-family: 'DM Serif Display', Georgia, serif; font-size: 30px; color: #fff; margin: 0 0 14px; line-height: 1.2;">
           Questions about freelance taxes?
         </h2>
@@ -209,7 +282,7 @@ import Footer from '../components/Footer.astro';
         </p>
         <a
           href="https://1800accountant.com/lp/join-now"
-          style="display: inline-flex; align-items: center; gap: 8px; background-color: var(--color-blue); color: #fff; font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; font-weight: 600; padding: 14px 30px; border-radius: 10px; text-decoration: none; box-shadow: 0 4px 20px rgba(37,99,235,0.4);"
+          style="display: inline-flex; align-items: center; gap: 8px; background-color: #fff; color: #0f172a; font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; font-weight: 600; padding: 14px 30px; border-radius: 10px; text-decoration: none;"
           class="hover:opacity-90 transition-opacity"
         >
           Get a free consultation

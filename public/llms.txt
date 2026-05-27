@@ -1,0 +1,25 @@
+# W9 Helper
+
+> Free W-9 form generator for freelancers and independent contractors. No account required. Takes 3 minutes.
+
+W9 Helper (w9helper.com) is a free online tool that guides freelancers and independent contractors through IRS Form W-9. Users complete a 6-step form and download a filled PDF directly in their browser. All sensitive data (SSN/EIN) is processed client-side and never transmitted to any server.
+
+W9 Helper is operated by 1-800Accountant, a national tax and accounting firm serving small businesses and self-employed individuals.
+
+## Main pages
+
+- [Homepage](https://w9helper.com/): Overview, W-9 form entry tool, and tax estimator
+- [W-9 Form](https://w9helper.com/form): The interactive 6-step W-9 generator
+
+## Guides
+
+- [What is a W-9?](https://w9helper.com/guides/what-is-a-w9): Explanation of IRS Form W-9 and who needs one
+- [How to fill out a W-9](https://w9helper.com/guides/how-to-fill-out-w9): Field-by-field walkthrough
+- [W-9 vs. W-4](https://w9helper.com/guides/w9-vs-w4): Differences between contractor and employee tax forms
+- [W-9 for LLCs](https://w9helper.com/guides/w9-for-llcs): Tax classification guidance for single-member and multi-member LLCs
+- [After submitting a W-9](https://w9helper.com/guides/after-submitting-w9): What to expect after giving a W-9 to a payer
+
+## Legal
+
+- [Privacy Policy](https://w9helper.com/privacy)
+- [Terms of Use](https://w9helper.com/terms)
