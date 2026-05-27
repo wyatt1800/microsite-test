@@ -8,11 +8,14 @@ import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 import awsAmplify from 'astro-aws-amplify';
 
+// Vercel sets process.env.VERCEL automatically — skip the AWS adapter there.
+const adapter = process.env.VERCEL ? undefined : awsAmplify();
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://w9helper.com',
   output: 'static',
-  adapter: awsAmplify(),
+  adapter,
   vite: {
     plugins: [tailwindcss()],
   },
