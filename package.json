@@ -19,6 +19,7 @@
     "@astrojs/mdx": "^5.0.6",
     "@astrojs/react": "^5.0.5",
     "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/vercel": "^10.0.7",
     "@base-ui/react": "^1.5.0",
     "@sendgrid/mail": "^8.1.6",
     "@tailwindcss/vite": "^4.3.0",
