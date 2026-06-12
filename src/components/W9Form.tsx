@@ -69,20 +69,22 @@ interface StepProps {
   errors: Partial<Record<keyof W9FormData, string>>;
 }
 
+const FONT = "'Plus Jakarta Sans', system-ui, sans-serif";
+
 function FieldWrapper({ label, hint, error, children }: { label: string; hint?: string; error?: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 13, fontWeight: 500, color: 'var(--color-text-primary)' }}>
+      <label style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: 'var(--color-text-primary)' }}>
         {label}
       </label>
       {children}
       {hint && !error && (
-        <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 12, color: 'var(--color-text-muted)', lineHeight: 1.5 }}>
+        <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: 'var(--color-text-muted)', lineHeight: 1.5 }}>
           {hint}
         </p>
       )}
       {error && (
-        <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 12, color: 'var(--color-error)', lineHeight: 1.5 }}>
+        <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 600, color: 'var(--color-error)', lineHeight: 1.5 }}>
           {error}
         </p>
       )}
@@ -91,11 +93,12 @@ function FieldWrapper({ label, hint, error, children }: { label: string; hint?: 
 }
 
 const inputStyle: React.CSSProperties = {
-  fontFamily: "'DM Sans', system-ui, sans-serif",
+  fontFamily: FONT,
   fontSize: 14,
+  fontWeight: 500,
   border: '1.5px solid var(--color-border-brand)',
-  borderRadius: 6,
-  padding: '9px 12px',
+  borderRadius: 12,
+  padding: '10px 14px',
   outline: 'none',
   width: '100%',
   backgroundColor: '#fff',
@@ -124,7 +127,7 @@ function TextInput({ value, onChange, placeholder, onFocus, onBlur, style }: {
         ...inputStyle,
         ...style,
         borderColor: focused ? 'var(--color-blue)' : 'var(--color-border-brand)',
-        boxShadow: focused ? '0 0 0 3px rgba(37,99,235,0.10)' : 'none',
+        boxShadow: focused ? '0 0 0 3px rgba(65,105,232,0.10)' : 'none',
       }}
     />
   );
@@ -159,11 +162,10 @@ function Step1({ data, onChange, errors }: StepProps) {
 }
 
 function Step2({ data, onChange, errors }: StepProps) {
-  const selected = TAX_CLASSIFICATIONS.find(c => c.value === data.taxClassification);
   return (
     <div className="flex flex-col gap-3">
       {errors.taxClassification && (
-        <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 12, color: 'var(--color-error)' }}>
+        <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 600, color: 'var(--color-error)' }}>
           {errors.taxClassification}
         </p>
       )}
@@ -174,9 +176,9 @@ function Step2({ data, onChange, errors }: StepProps) {
             display: 'flex',
             alignItems: 'flex-start',
             gap: 12,
-            padding: '12px 14px',
+            padding: '12px 16px',
             border: `1.5px solid ${data.taxClassification === cls.value ? 'var(--color-blue)' : 'var(--color-border-brand)'}`,
-            borderRadius: 10,
+            borderRadius: 14,
             cursor: 'pointer',
             backgroundColor: data.taxClassification === cls.value ? 'var(--color-blue-light)' : '#fff',
             transition: 'border-color 0.15s, background-color 0.15s',
@@ -191,11 +193,11 @@ function Step2({ data, onChange, errors }: StepProps) {
             style={{ marginTop: 3, accentColor: 'var(--color-blue)', flexShrink: 0 }}
           />
           <div>
-            <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 14, fontWeight: 500, color: 'var(--color-text-primary)', margin: 0 }}>
+            <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: 'var(--color-text-primary)', margin: 0 }}>
               {cls.label}
             </p>
             {data.taxClassification === cls.value && (
-              <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 12, color: 'var(--color-text-secondary)', margin: '4px 0 0', lineHeight: 1.5 }}>
+              <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)', margin: '4px 0 0', lineHeight: 1.5 }}>
                 {cls.hint}
               </p>
             )}
@@ -213,10 +215,11 @@ function Step3({ data, onChange }: StepProps) {
         style={{
           backgroundColor: 'var(--color-blue-light)',
           border: '1px solid var(--color-blue-mid)',
-          borderRadius: 10,
+          borderRadius: 14,
           padding: '12px 16px',
-          fontFamily: "'DM Sans', system-ui, sans-serif",
+          fontFamily: FONT,
           fontSize: 13,
+          fontWeight: 500,
           color: 'var(--color-text-secondary)',
           lineHeight: 1.6,
         }}
@@ -254,7 +257,7 @@ function Step4({ data, onChange, errors }: StepProps) {
     return {
       ...inputStyle,
       borderColor: focused === field ? 'var(--color-blue)' : 'var(--color-border-brand)',
-      boxShadow: focused === field ? '0 0 0 3px rgba(37,99,235,0.10)' : 'none',
+      boxShadow: focused === field ? '0 0 0 3px rgba(65,105,232,0.10)' : 'none',
     };
   }
 
@@ -314,7 +317,7 @@ function Step5({ data, onChange, errors }: StepProps) {
               gap: 10,
               padding: '12px 16px',
               border: `1.5px solid ${data.tinType === type ? 'var(--color-blue)' : 'var(--color-border-brand)'}`,
-              borderRadius: 10,
+              borderRadius: 14,
               cursor: 'pointer',
               backgroundColor: data.tinType === type ? 'var(--color-blue-light)' : '#fff',
               transition: 'border-color 0.15s, background-color 0.15s',
@@ -328,7 +331,7 @@ function Step5({ data, onChange, errors }: StepProps) {
               onChange={() => { onChange('tinType', type); onChange('tin', ''); }}
               style={{ accentColor: 'var(--color-blue)' }}
             />
-            <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 14, fontWeight: 500, color: 'var(--color-text-primary)' }}>
+            <span style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: 'var(--color-text-primary)' }}>
               {type === 'ssn' ? 'Social Security Number (SSN)' : 'Employer Identification Number (EIN)'}
             </span>
           </label>
@@ -352,7 +355,7 @@ function Step5({ data, onChange, errors }: StepProps) {
             ...inputStyle,
             letterSpacing: '0.08em',
             borderColor: focused ? 'var(--color-blue)' : errors.tin ? 'var(--color-error)' : 'var(--color-border-brand)',
-            boxShadow: focused ? '0 0 0 3px rgba(37,99,235,0.10)' : 'none',
+            boxShadow: focused ? '0 0 0 3px rgba(65,105,232,0.10)' : 'none',
           }}
         />
       </FieldWrapper>
@@ -362,16 +365,16 @@ function Step5({ data, onChange, errors }: StepProps) {
           display: 'flex',
           alignItems: 'flex-start',
           gap: 10,
-          padding: '12px 14px',
+          padding: '12px 16px',
           backgroundColor: 'var(--color-teal-light)',
           border: '1px solid #99f6e4',
-          borderRadius: 10,
+          borderRadius: 14,
         }}
       >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: 2, flexShrink: 0 }}>
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
         </svg>
-        <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 12.5, color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.6 }}>
+        <p style={{ fontFamily: FONT, fontSize: 12.5, fontWeight: 500, color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.6 }}>
           Your taxpayer ID stays in your browser and is used only to fill your PDF. It is never transmitted to any server.
         </p>
       </div>
@@ -389,20 +392,21 @@ function ReviewRow({ label, value, onEdit }: ReviewRowProps) {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--color-border-brand)' }}>
       <div>
-        <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 12, color: 'var(--color-text-muted)', margin: '0 0 2px' }}>{label}</p>
-        <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 14, color: 'var(--color-text-primary)', margin: 0, fontWeight: 500 }}>{value || '—'}</p>
+        <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: 'var(--color-text-muted)', margin: '0 0 2px' }}>{label}</p>
+        <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: 'var(--color-text-primary)', margin: 0 }}>{value || '—'}</p>
       </div>
       <button
         onClick={onEdit}
         style={{
-          fontFamily: "'DM Sans', system-ui, sans-serif",
+          fontFamily: FONT,
           fontSize: 12,
+          fontWeight: 700,
           color: 'var(--color-blue)',
           background: 'none',
           border: 'none',
           cursor: 'pointer',
-          padding: '4px 8px',
-          borderRadius: 6,
+          padding: '4px 10px',
+          borderRadius: 9999,
         }}
         className="hover:bg-blue-50 transition-colors"
       >
@@ -445,13 +449,13 @@ function Step6({ data, onGoToStep, onDownload, isGenerating }: {
           onClick={onDownload}
           disabled={isGenerating}
           style={{
-            fontFamily: "'DM Sans', system-ui, sans-serif",
-            fontWeight: 600,
+            fontFamily: FONT,
+            fontWeight: 700,
             fontSize: 15,
             backgroundColor: isGenerating ? '#6ee7b7' : 'var(--color-teal)',
             color: '#fff',
             border: 'none',
-            borderRadius: 10,
+            borderRadius: 50,
             padding: '14px 24px',
             cursor: isGenerating ? 'wait' : 'pointer',
             display: 'flex',
@@ -460,6 +464,7 @@ function Step6({ data, onGoToStep, onDownload, isGenerating }: {
             gap: 8,
             transition: 'background-color 0.15s',
             width: '100%',
+            boxShadow: isGenerating ? 'none' : '0 4px 16px rgba(13,148,136,0.30)',
           }}
         >
           {isGenerating ? (
@@ -478,7 +483,7 @@ function Step6({ data, onGoToStep, onDownload, isGenerating }: {
             </>
           )}
         </button>
-        <p style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 12, color: 'var(--color-text-muted)', textAlign: 'center', margin: 0 }}>
+        <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: 'var(--color-text-muted)', textAlign: 'center', margin: 0 }}>
           By downloading, you confirm the information above is accurate.
         </p>
       </div>
@@ -566,25 +571,25 @@ export default function W9Form({ onPdfReady }: W9FormProps) {
   const stepProps: StepProps = { data: formData, onChange: updateField, errors };
 
   return (
-    <div style={{ fontFamily: "'DM Sans', system-ui, sans-serif" }}>
+    <div style={{ fontFamily: FONT }}>
       {/* Progress bar */}
       <div className="mb-6">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <span style={{ fontSize: 13, color: 'var(--color-text-muted)', fontWeight: 500 }}>
+          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-muted)' }}>
             Step {step} of {TOTAL_STEPS}
           </span>
-          <span style={{ fontSize: 13, color: 'var(--color-text-muted)' }}>
+          <span style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)' }}>
             {STEP_TITLES[step - 1]}
           </span>
         </div>
-        <div style={{ height: 4, backgroundColor: 'var(--color-border-brand)', borderRadius: 2, overflow: 'hidden' }}>
+        <div style={{ height: 6, backgroundColor: 'var(--color-border-brand)', borderRadius: 9999, overflow: 'hidden' }}>
           <div
             style={{
               height: '100%',
               width: `${(step / TOTAL_STEPS) * 100}%`,
               backgroundColor: 'var(--color-blue)',
-              borderRadius: 2,
-              transition: 'width 0.3s ease',
+              borderRadius: 9999,
+              transition: 'width 0.35s ease',
             }}
           />
         </div>
@@ -614,14 +619,14 @@ export default function W9Form({ onPdfReady }: W9FormProps) {
             <button
               onClick={goBack}
               style={{
-                fontFamily: "'DM Sans', system-ui, sans-serif",
+                fontFamily: FONT,
                 fontSize: 14,
-                fontWeight: 500,
+                fontWeight: 600,
                 color: 'var(--color-text-secondary)',
                 background: 'none',
                 border: '1.5px solid var(--color-border-brand)',
-                borderRadius: 10,
-                padding: '10px 20px',
+                borderRadius: 50,
+                padding: '10px 22px',
                 cursor: 'pointer',
               }}
             >
@@ -633,18 +638,19 @@ export default function W9Form({ onPdfReady }: W9FormProps) {
           <button
             onClick={goNext}
             style={{
-              fontFamily: "'DM Sans', system-ui, sans-serif",
+              fontFamily: FONT,
               fontSize: 14,
-              fontWeight: 600,
+              fontWeight: 700,
               color: '#fff',
               backgroundColor: 'var(--color-blue)',
               border: 'none',
-              borderRadius: 10,
-              padding: '10px 24px',
+              borderRadius: 50,
+              padding: '10px 26px',
               cursor: 'pointer',
+              boxShadow: '0 3px 12px rgba(65,105,232,0.28)',
             }}
           >
-            {step === 3 ? 'Continue →' : 'Continue →'}
+            Continue →
           </button>
         </div>
       )}

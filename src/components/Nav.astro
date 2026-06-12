@@ -9,16 +9,16 @@ const { currentPath = '/' } = Astro.props;
   <div class="mx-auto max-w-5xl px-4 sm:px-6">
     <div class="flex h-16 items-center justify-between">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 min-w-0">
-        <!-- Logo mark: blue rounded square with italic W -->
-        <span
-          style="background-color: var(--color-blue); border-radius: 9px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"
-        >
-          <span style="font-family: 'DM Serif Display', Georgia, serif; font-style: italic; color: #fff; font-size: 20px; line-height: 1; margin-top: 1px;">W</span>
-        </span>
-        <!-- Wordmark -->
-        <span style="font-family: 'DM Sans', system-ui, sans-serif; font-weight: 600; font-size: 17px; white-space: nowrap;">
-          <span style="color: #fff;">W9 </span><span style="color: var(--color-blue-mid);">Helper</span>
+      <a href="/" class="flex items-center gap-2.5 min-w-0">
+        <img
+          src="/logo.png"
+          alt="W9 Helper"
+          width="38"
+          height="38"
+          style="flex-shrink: 0; border-radius: 10px;"
+        />
+        <span style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 700; font-size: 17px; white-space: nowrap;">
+          <span style="color: #fff;">W9</span><span style="color: var(--color-blue-mid); font-style: italic;">Helper</span>
         </span>
       </a>
 
@@ -26,21 +26,21 @@ const { currentPath = '/' } = Astro.props;
       <div class="flex items-center gap-6">
         <a
           href="/#how-it-works"
-          style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; font-weight: 500; color: var(--color-slate-mid); text-decoration: none;"
+          style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 14px; font-weight: 600; color: var(--color-slate-mid); text-decoration: none;"
           class="hover:text-white transition-colors"
         >
           How it works
         </a>
         <a
           href="/guides"
-          style={`font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; font-weight: 500; text-decoration: none; color: ${currentPath.startsWith('/guides') ? '#fff' : 'var(--color-slate-mid)'};`}
+          style={`font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; color: ${currentPath.startsWith('/guides') ? '#fff' : 'var(--color-slate-mid)'};`}
           class="hover:text-white transition-colors"
         >
           Guides
         </a>
         <a
           href="/form"
-          style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 600; background-color: var(--color-blue); color: #fff; padding: 8px 18px; border-radius: 8px; text-decoration: none;"
+          style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 13px; font-weight: 700; background-color: var(--color-blue); color: #fff; padding: 8px 20px; border-radius: 50px; text-decoration: none; box-shadow: 0 2px 10px rgba(65,105,232,0.40);"
           class="hover:opacity-90 transition-opacity hidden sm:inline-flex"
         >
           Start your W-9 →

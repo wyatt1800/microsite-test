@@ -67,11 +67,11 @@ const pageSchemas: Record<string, unknown>[] = [
     <!-- JSON-LD structured data -->
     <script type="application/ld+json" set:html={JSON.stringify(pageSchemas)} />
 
-    <!-- Google Fonts: DM Serif Display + DM Sans -->
+    <!-- Google Fonts: Plus Jakarta Sans (humanist sans-serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
@@ -94,7 +94,7 @@ const pageSchemas: Record<string, unknown>[] = [
       </script>
     )}
   </head>
-  <body class="min-h-screen antialiased" style="background-color: var(--color-off-white); color: var(--color-text-primary); font-family: 'DM Sans', system-ui, sans-serif;">
+  <body class="min-h-screen antialiased" style="background-color: var(--color-off-white); color: var(--color-text-primary); font-family: 'Plus Jakarta Sans', system-ui, sans-serif;">
     <!-- Google Tag Manager (noscript) -->
     {env.PUBLIC_GTM_CONTAINER_ID && (
       <noscript>

@@ -74,16 +74,17 @@ const usd = (n: number) =>
 
 const pct = (n: number) => `${(n * 100).toFixed(1)}%`;
 
-const BASE_FONT: CSSProperties = { fontFamily: "'DM Sans', system-ui, sans-serif" };
+const BASE_FONT: CSSProperties = { fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif" };
 
 const INPUT_STYLE: CSSProperties = {
   ...BASE_FONT,
   width: '100%',
   padding: '10px 12px 10px 28px',
-  border: '1.5px solid #e2e8f0',
-  borderRadius: 8,
+  border: '1.5px solid var(--color-border-brand)',
+  borderRadius: 12,
   fontSize: 14,
-  color: '#0f172a',
+  fontWeight: 500,
+  color: 'var(--color-text-primary)',
   outline: 'none',
   boxSizing: 'border-box',
   backgroundColor: '#fff',
@@ -93,8 +94,8 @@ const LABEL_STYLE: CSSProperties = {
   ...BASE_FONT,
   display: 'block',
   fontSize: 13,
-  fontWeight: 500,
-  color: '#374151',
+  fontWeight: 600,
+  color: 'var(--color-text-primary)',
   marginBottom: 6,
 };
 
@@ -118,18 +119,18 @@ export default function TaxCalculator() {
         className="grid grid-cols-1 sm:grid-cols-2"
         style={{
           background: '#fff',
-          border: '1px solid #e2e8f0',
-          borderRadius: 16,
+          border: '1.5px solid var(--color-border-brand)',
+          borderRadius: 24,
           overflow: 'hidden',
-          boxShadow: '0 1px 3px rgba(15,23,42,0.05)',
+          boxShadow: '0 2px 16px rgba(29,52,97,0.07)',
         }}
       >
         {/* Inputs */}
         <div className="border-b sm:border-b-0 sm:border-r border-slate-200" style={{ padding: 32 }}>
-          <p style={{ ...BASE_FONT, fontSize: 15, fontWeight: 600, color: '#0f172a', margin: '0 0 4px' }}>
+          <p style={{ ...BASE_FONT, fontSize: 15, fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 4px' }}>
             Your income
           </p>
-          <p style={{ ...BASE_FONT, fontSize: 13, color: '#64748b', margin: '0 0 28px', lineHeight: 1.5 }}>
+          <p style={{ ...BASE_FONT, fontSize: 13, fontWeight: 500, color: 'var(--color-text-secondary)', margin: '0 0 28px', lineHeight: 1.5 }}>
             Enter your expected earnings for this year.
           </p>
 
@@ -181,10 +182,11 @@ export default function TaxCalculator() {
                 ...BASE_FONT,
                 width: '100%',
                 padding: '10px 12px',
-                border: '1.5px solid #e2e8f0',
-                borderRadius: 8,
+                border: '1.5px solid var(--color-border-brand)',
+                borderRadius: 12,
                 fontSize: 14,
-                color: '#0f172a',
+                fontWeight: 500,
+                color: 'var(--color-text-primary)',
                 outline: 'none',
                 backgroundColor: '#fff',
                 cursor: 'pointer',
@@ -199,11 +201,11 @@ export default function TaxCalculator() {
         </div>
 
         {/* Results */}
-        <div style={{ padding: 32, backgroundColor: '#f8fafc' }}>
-          <p style={{ ...BASE_FONT, fontSize: 15, fontWeight: 600, color: '#0f172a', margin: '0 0 4px' }}>
+        <div style={{ padding: 32, backgroundColor: 'var(--color-off-white)' }}>
+          <p style={{ ...BASE_FONT, fontSize: 15, fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 4px' }}>
             Your estimate
           </p>
-          <p style={{ ...BASE_FONT, fontSize: 13, color: '#64748b', margin: '0 0 28px', lineHeight: 1.5 }}>
+          <p style={{ ...BASE_FONT, fontSize: 13, fontWeight: 500, color: 'var(--color-text-secondary)', margin: '0 0 28px', lineHeight: 1.5 }}>
             Based on 2024 federal tax rates.
           </p>
 
@@ -211,53 +213,54 @@ export default function TaxCalculator() {
             <div style={{
               padding: '40px 20px',
               textAlign: 'center',
-              color: '#94a3b8',
+              color: 'var(--color-text-muted)',
               fontSize: 14,
-              border: '1.5px dashed #e2e8f0',
-              borderRadius: 12,
+              fontWeight: 500,
+              border: '1.5px dashed var(--color-border-brand)',
+              borderRadius: 16,
               ...BASE_FONT,
             }}>
               Enter your income on the left to see an estimate
             </div>
           ) : (
             <>
-              <div style={{ marginBottom: 10, padding: '14px 16px', background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0' }}>
+              <div style={{ marginBottom: 10, padding: '14px 16px', background: '#fff', borderRadius: 14, border: '1.5px solid var(--color-border-brand)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                  <span style={{ ...BASE_FONT, fontSize: 13, color: '#475569' }}>Self-employment tax</span>
-                  <span style={{ ...BASE_FONT, fontSize: 14, fontWeight: 600, color: '#0f172a' }}>{usd(result.seTax)}</span>
+                  <span style={{ ...BASE_FONT, fontSize: 13, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Self-employment tax</span>
+                  <span style={{ ...BASE_FONT, fontSize: 14, fontWeight: 700, color: 'var(--color-text-primary)' }}>{usd(result.seTax)}</span>
                 </div>
-                <div style={{ ...BASE_FONT, fontSize: 11, color: '#94a3b8' }}>Social Security + Medicare (15.3%)</div>
+                <div style={{ ...BASE_FONT, fontSize: 11, fontWeight: 500, color: 'var(--color-text-muted)' }}>Social Security + Medicare (15.3%)</div>
               </div>
 
-              <div style={{ marginBottom: 10, padding: '14px 16px', background: '#fff', borderRadius: 10, border: '1px solid #e2e8f0' }}>
+              <div style={{ marginBottom: 10, padding: '14px 16px', background: '#fff', borderRadius: 14, border: '1.5px solid var(--color-border-brand)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                  <span style={{ ...BASE_FONT, fontSize: 13, color: '#475569' }}>Federal income tax</span>
-                  <span style={{ ...BASE_FONT, fontSize: 14, fontWeight: 600, color: '#0f172a' }}>{usd(result.federalTax)}</span>
+                  <span style={{ ...BASE_FONT, fontSize: 13, fontWeight: 500, color: 'var(--color-text-secondary)' }}>Federal income tax</span>
+                  <span style={{ ...BASE_FONT, fontSize: 14, fontWeight: 700, color: 'var(--color-text-primary)' }}>{usd(result.federalTax)}</span>
                 </div>
-                <div style={{ ...BASE_FONT, fontSize: 11, color: '#94a3b8' }}>After standard deduction & SE deduction</div>
+                <div style={{ ...BASE_FONT, fontSize: 11, fontWeight: 500, color: 'var(--color-text-muted)' }}>After standard deduction & SE deduction</div>
               </div>
 
-              <div style={{ marginBottom: 10, padding: '16px', background: '#0f172a', borderRadius: 10 }}>
+              <div style={{ marginBottom: 10, padding: '16px', background: 'var(--color-navy)', borderRadius: 14 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                  <span style={{ ...BASE_FONT, fontSize: 13, color: 'rgba(203,213,225,0.9)', fontWeight: 500 }}>Total estimated tax</span>
-                  <span style={{ ...BASE_FONT, fontSize: 18, fontWeight: 700, color: '#fff' }}>{usd(result.totalTax)}</span>
+                  <span style={{ ...BASE_FONT, fontSize: 13, fontWeight: 600, color: 'rgba(200,213,232,0.9)' }}>Total estimated tax</span>
+                  <span style={{ ...BASE_FONT, fontSize: 18, fontWeight: 800, color: '#fff' }}>{usd(result.totalTax)}</span>
                 </div>
-                <div style={{ ...BASE_FONT, fontSize: 11, color: 'rgba(203,213,225,0.45)' }}>Effective rate: {pct(result.effectiveRate)}</div>
+                <div style={{ ...BASE_FONT, fontSize: 11, fontWeight: 500, color: 'rgba(200,213,232,0.45)' }}>Effective rate: {pct(result.effectiveRate)}</div>
               </div>
 
-              <div style={{ padding: '14px 16px', background: '#eff6ff', borderRadius: 10, border: '1px solid #bfdbfe' }}>
+              <div style={{ padding: '14px 16px', background: 'var(--color-blue-light)', borderRadius: 14, border: '1px solid var(--color-blue-mid)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                  <span style={{ ...BASE_FONT, fontSize: 13, color: '#1d4ed8', fontWeight: 500 }}>Quarterly payment</span>
-                  <span style={{ ...BASE_FONT, fontSize: 16, fontWeight: 700, color: '#1d4ed8' }}>{usd(result.quarterlyPayment)}</span>
+                  <span style={{ ...BASE_FONT, fontSize: 13, fontWeight: 600, color: 'var(--color-blue)' }}>Quarterly payment</span>
+                  <span style={{ ...BASE_FONT, fontSize: 16, fontWeight: 800, color: 'var(--color-blue)' }}>{usd(result.quarterlyPayment)}</span>
                 </div>
-                <div style={{ ...BASE_FONT, fontSize: 11, color: '#3b82f6' }}>Set aside this amount every 3 months</div>
+                <div style={{ ...BASE_FONT, fontSize: 11, fontWeight: 500, color: 'var(--color-blue)' }}>Set aside this amount every 3 months</div>
               </div>
             </>
           )}
         </div>
       </div>
 
-      <p style={{ ...BASE_FONT, fontSize: 11, color: '#94a3b8', marginTop: 12, lineHeight: 1.6 }}>
+      <p style={{ ...BASE_FONT, fontSize: 11, fontWeight: 500, color: 'var(--color-text-muted)', marginTop: 12, lineHeight: 1.6 }}>
         Estimate only. Based on 2024 federal tax rates, standard deduction, and self-employment tax rules. Does not include state taxes, deductions, credits, or the 0.9% Medicare surtax on high earners. Not tax advice — consult a professional for your specific situation.
       </p>
     </div>
