@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import W9Form from './W9Form';
 import LeadCapture from './LeadCapture';
-import type { W9FormData } from '@/lib/generateW9PDF';
+import type { W9FormData } from '@/lib/fillW9PDF';
 
 type Stage = 'form' | 'lead-capture';
 
@@ -16,8 +16,8 @@ export default function W9FormIsland() {
 
   async function handleDirectDownload() {
     if (!completedData) return;
-    const { generateW9PDF, downloadPDF } = await import('@/lib/generateW9PDF');
-    const pdfBytes = await generateW9PDF(completedData);
+    const { fillW9PDF, downloadPDF } = await import('@/lib/fillW9PDF');
+    const pdfBytes = await fillW9PDF(completedData);
     const safeName = completedData.legalName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
     downloadPDF(pdfBytes, `w9_${safeName}.pdf`);
   }

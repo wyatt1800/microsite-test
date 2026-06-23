@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { W9FormData } from '@/lib/generateW9PDF';
+import type { W9FormData } from '@/lib/fillW9PDF';
 
 interface LeadCaptureProps {
   formData: W9FormData;

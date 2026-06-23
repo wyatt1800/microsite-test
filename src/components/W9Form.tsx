@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { W9FormData } from '@/lib/generateW9PDF';
+import type { W9FormData } from '@/lib/fillW9PDF';
 
 const TOTAL_STEPS = 6;
 
@@ -445,6 +445,23 @@ function Step6({ data, onGoToStep, onDownload, isGenerating }: {
       )}
 
       <div className="mt-2 flex flex-col gap-3">
+        <div
+          style={{
+            backgroundColor: 'var(--color-blue-light)',
+            border: '1px solid var(--color-blue-mid)',
+            borderRadius: 14,
+            padding: '12px 16px',
+          }}
+        >
+          <p style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: 'var(--color-text-primary)', margin: '0 0 4px' }}>
+            Electronic signature certification
+          </p>
+          <p style={{ fontFamily: FONT, fontSize: 12.5, fontWeight: 500, color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.6 }}>
+            By clicking Download, you certify under penalties of perjury that the information above is accurate and complete. Your full legal name —{' '}
+            <strong>{data.legalName}</strong> — will be entered as your typed signature on the W-9.
+          </p>
+        </div>
+
         <button
           onClick={onDownload}
           disabled={isGenerating}
@@ -483,9 +500,6 @@ function Step6({ data, onGoToStep, onDownload, isGenerating }: {
             </>
           )}
         </button>
-        <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: 'var(--color-text-muted)', textAlign: 'center', margin: 0 }}>
-          By downloading, you confirm the information above is accurate.
-        </p>
       </div>
     </div>
   );
@@ -558,8 +572,8 @@ export default function W9Form({ onPdfReady }: W9FormProps) {
   async function handleDownload() {
     setIsGenerating(true);
     try {
-      const { generateW9PDF, downloadPDF } = await import('@/lib/generateW9PDF');
-      const pdfBytes = await generateW9PDF(formData);
+      const { fillW9PDF, downloadPDF } = await import('@/lib/fillW9PDF');
+      const pdfBytes = await fillW9PDF(formData);
       const safeName = formData.legalName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
       downloadPDF(pdfBytes, `w9_${safeName}.pdf`);
       onPdfReady(formData);
