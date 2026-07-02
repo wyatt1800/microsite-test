@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import TaxCalculator from '../components/TaxCalculator';
+import { Icon } from 'astro-icon/components';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -57,8 +58,8 @@ const faqSchema = {
     <section style="background: linear-gradient(148deg, #dce8ff 0%, #eef3ff 40%, #f5f8ff 100%); padding: 72px 24px 100px; position: relative; overflow: hidden;">
 
       <!-- Soft background blobs -->
-      <div style="position: absolute; top: -120px; right: -60px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(65,105,232,0.09) 0%, transparent 65%); pointer-events: none;"></div>
-      <div style="position: absolute; bottom: 60px; left: -120px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(13,148,136,0.07) 0%, transparent 65%); pointer-events: none;"></div>
+      <div style="position: absolute; top: -120px; right: -60px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(21,84,209,0.09) 0%, transparent 65%); pointer-events: none;"></div>
+      <div style="position: absolute; bottom: 60px; left: -120px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(15,118,110,0.07) 0%, transparent 65%); pointer-events: none;"></div>
 
       <!-- Wave bottom edge -->
       <svg style="position: absolute; bottom: -1px; left: 0; width: 100%;" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,22 +73,22 @@ const faqSchema = {
           <div style="flex: 1; min-width: min(100%, 340px);">
 
             <!-- Badge pill -->
-            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(65,105,232,0.08); border: 1px solid rgba(65,105,232,0.18); border-radius: 9999px; padding: 6px 16px; margin-bottom: 28px;">
-              <span style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12px; font-weight: 700; color: var(--color-blue);">Free</span>
+            <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(21,84,209,0.08); border: 1px solid rgba(21,84,209,0.18); border-radius: 8px; padding: 6px 16px; margin-bottom: 28px;">
+              <span style="font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 700; color: var(--color-blue);">Free</span>
               <span style="color: var(--color-blue-mid); font-size: 10px;">●</span>
-              <span style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; color: var(--color-slate);">No account required</span>
+              <span style="font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 600; color: var(--color-slate);">No account required</span>
               <span style="color: var(--color-blue-mid); font-size: 10px;">●</span>
-              <span style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600; color: var(--color-slate);">Takes 3 minutes</span>
+              <span style="font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 600; color: var(--color-slate);">Takes 3 minutes</span>
             </div>
 
             <!-- H1 -->
-            <h1 style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; font-size: clamp(32px, 5vw, 52px); line-height: 1.15; color: var(--color-text-primary); margin: 0 0 20px; letter-spacing: -0.01em;">
+            <h1 style="font-family: 'Poppins', system-ui, sans-serif; font-weight: 600; font-size: clamp(32px, 5vw, 52px); line-height: 1.15; color: var(--color-text-primary); margin: 0 0 20px; letter-spacing: -0.01em;">
               Fill Out Your W-9<br/>
               <span style="color: var(--color-blue);">Free, Online, in Minutes</span>
             </h1>
 
             <!-- Subhead -->
-            <p style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 17px; font-weight: 500; color: var(--color-text-secondary); line-height: 1.7; margin: 0 0 36px; max-width: 420px;">
+            <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 17px; font-weight: 500; color: var(--color-text-secondary); line-height: 1.7; margin: 0 0 36px; max-width: 420px;">
               No printing. No login. Complete your W-9 and download a clean PDF ready to send to whoever asked for it.
             </p>
 
@@ -95,19 +96,19 @@ const faqSchema = {
             <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
               <a
                 href="/form"
-                style="display: inline-flex; align-items: center; gap: 8px; background-color: var(--color-navy); color: #fff; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 15px; font-weight: 700; padding: 14px 28px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 18px rgba(29,52,97,0.28);"
+                style="display: inline-flex; align-items: center; gap: 8px; background-color: var(--color-navy); color: #fff; font-family: 'Poppins', system-ui, sans-serif; font-size: 15px; font-weight: 600; padding: 14px 28px; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 18px rgba(10,37,64,0.28);"
                 class="hover:opacity-90 transition-opacity"
               >
                 Start your W-9
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <Icon name="tabler:arrow-right" width="15" height="15" />
               </a>
               <a
                 href="#how-it-works"
-                style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 15px; font-weight: 600; color: var(--color-slate); text-decoration: none; display: inline-flex; align-items: center; gap: 5px;"
+                style="font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 600; color: var(--color-slate); text-decoration: none; display: inline-flex; align-items: center; gap: 5px;"
                 class="hover:text-[var(--color-text-primary)] transition-colors"
               >
                 How it works
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                <Icon name="tabler:chevron-down" width="13" height="13" />
               </a>
             </div>
 
@@ -117,10 +118,10 @@ const faqSchema = {
           <div style="flex-shrink: 0; width: clamp(180px, 32%, 340px); margin: 0 auto;">
             <img
               src="/illustrations/w9form.png"
-              alt="Person filling out a W-9 digitally on a tablet"
+              alt="W-9 form with the Taxpayer Identification Number field highlighted"
               width="340"
-              height="340"
-              style="width: 100%; height: auto; filter: drop-shadow(0 8px 28px rgba(29,52,97,0.14));"
+              height="319"
+              style="width: 100%; height: auto; filter: drop-shadow(0 8px 28px rgba(10,37,64,0.14));"
               loading="eager"
             />
           </div>
@@ -135,36 +136,37 @@ const faqSchema = {
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 sm:divide-x divide-slate-200">
           {[
             {
-              icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`,
+              icon: 'tabler:file-certificate',
               text: 'Based on official IRS Form W-9',
-              color: '#4169E8',
-              bg: '#E8EEFF',
+              color: '#1554D1',
+              bg: '#E7EFFB',
             },
             {
-              icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+              icon: 'tabler:lock',
               text: 'No account required',
-              color: '#0D9488',
-              bg: '#CCFBF1',
+              color: '#0F766E',
+              bg: '#D6F1EE',
             },
             {
-              icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+              icon: 'tabler:shield-check',
               text: 'SSN/EIN never leaves your browser',
-              color: '#7C3AED',
-              bg: '#F5F3FF',
+              color: '#6D28D9',
+              bg: '#F1EBFB',
             },
             {
-              icon: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+              icon: 'tabler:circle-check',
               text: '100% free, no catch',
-              color: '#059669',
-              bg: '#D1FAE5',
+              color: '#047857',
+              bg: '#D9F2E7',
             },
           ].map(item => (
             <div style="display: flex; align-items: center; padding: 0 28px;">
               <span
                 style={`width: 30px; height: 30px; border-radius: 50%; background-color: ${item.bg}; display: flex; align-items: center; justify-content: center; color: ${item.color}; flex-shrink: 0; margin-right: 10px;`}
-                set:html={item.icon}
-              />
-              <span style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 13px; font-weight: 600; color: var(--color-text-secondary); white-space: nowrap;">
+              >
+                <Icon name={item.icon} width="15" height="15" />
+              </span>
+              <span style="font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 600; color: var(--color-text-secondary); white-space: nowrap;">
                 {item.text}
               </span>
             </div>
@@ -178,11 +180,10 @@ const faqSchema = {
       <div class="mx-auto max-w-5xl">
 
         <div style="text-align: center; margin-bottom: 56px;">
-          <span style="display: inline-block; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12px; font-weight: 700; color: var(--color-blue); text-transform: uppercase; letter-spacing: 0.08em; background: var(--color-blue-light); border-radius: 9999px; padding: 4px 14px; margin-bottom: 14px;">How It Works</span>
-          <h2 style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; font-size: clamp(24px, 3.5vw, 34px); color: var(--color-text-primary); margin: 0 0 14px; line-height: 1.2;">
+          <h2 class="reveal" style="font-family: 'Poppins', system-ui, sans-serif; font-weight: 600; font-size: clamp(24px, 3.5vw, 34px); color: var(--color-text-primary); margin: 0 0 14px; line-height: 1.2;">
             Fill out your W-9 in 3 simple steps
           </h2>
-          <p style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 16px; font-weight: 500; color: var(--color-text-secondary); margin: 0; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+          <p class="reveal" style="font-family: 'Inter', system-ui, sans-serif; font-size: 16px; font-weight: 500; color: var(--color-text-secondary); margin: 0; max-width: 420px; margin-left: auto; margin-right: auto; line-height: 1.6;">
             No confusing jargon. Just clear guidance at every field.
           </p>
         </div>
@@ -192,52 +193,58 @@ const faqSchema = {
             {
               num: '1',
               img: '/illustrations/fill-form.png',
+              imgW: 140, imgH: 163,
               imgAlt: 'Person filling out form fields on a phone',
               title: 'Fill in your info',
               body: "Answer clear, plain-English questions at each step. Most people finish in under 3 minutes — no tax expertise needed.",
-              accent: '#4169E8',
-              accentBg: '#E8EEFF',
+              accent: '#1554D1',
+              accentBg: '#E7EFFB',
+              delay: '.12s',
             },
             {
               num: '2',
               img: '/illustrations/funnel.png',
+              imgW: 100, imgH: 182,
               imgAlt: 'Information flows into a clean, generated document',
               title: 'We build your W-9',
               body: "Your answers are mapped to the official IRS form layout — automatically and correctly — right in your browser.",
-              accent: '#7C3AED',
-              accentBg: '#F5F3FF',
+              accent: '#6D28D9',
+              accentBg: '#F1EBFB',
+              delay: '.20s',
             },
             {
               num: '3',
               img: '/illustrations/download.png',
+              imgW: 140, imgH: 137,
               imgAlt: 'Secure cloud download button for the PDF',
               title: 'Download your PDF',
               body: "Get a clean, IRS-ready W-9 PDF instantly. No email required. Your data never touches a server.",
-              accent: '#0D9488',
-              accentBg: '#CCFBF1',
+              accent: '#0F766E',
+              accentBg: '#D6F1EE',
+              delay: '.28s',
             },
           ].map(step => (
-            <div style={{ backgroundColor: '#fff', borderRadius: 24, overflow: 'hidden', boxShadow: '0 2px 16px rgba(29,52,97,0.07)', border: '1px solid var(--color-border-brand)', display: 'flex', flexDirection: 'column' }}>
+            <div class="reveal" style={{ '--d': step.delay, backgroundColor: '#fff', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 2px 16px rgba(10,37,64,0.07)', border: '1px solid var(--color-border-brand)', display: 'flex', flexDirection: 'column' }}>
               <!-- Illustration area -->
-              <div style={{ backgroundColor: step.accentBg, padding: '32px 24px 20px', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 180 }}>
+              <div style={{ backgroundColor: step.accentBg, padding: '32px 24px 20px', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '180px' }}>
                 <img
                   src={step.img}
                   alt={step.imgAlt}
-                  width="140"
-                  height="140"
-                  style={{ width: 140, height: 140, objectFit: 'contain' }}
+                  width={step.imgW}
+                  height={step.imgH}
+                  style={{ maxWidth: '140px', maxHeight: '140px', width: 'auto', height: 'auto', objectFit: 'contain' }}
                   loading="lazy"
                 />
               </div>
               <!-- Text area -->
               <div style={{ padding: '20px 24px 28px', flex: 1 }}>
-                <p style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 13, fontWeight: 700, color: 'var(--color-text-secondary)', margin: '0 0 4px', letterSpacing: '0.02em' }}>
+                <p style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '13px', fontWeight: 700, color: 'var(--color-text-secondary)', margin: '0 0 4px', letterSpacing: '0.02em' }}>
                   Step {step.num}
                 </p>
-                <h3 style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 16, fontWeight: 800, color: 'var(--color-text-primary)', margin: '0 0 8px' }}>
+                <h3 style={{ fontFamily: "'Poppins', system-ui, sans-serif", fontSize: '16px', fontWeight: 600, color: 'var(--color-text-primary)', margin: '0 0 8px' }}>
                   {step.title}
                 </h3>
-                <p style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 14, fontWeight: 500, color: 'var(--color-text-secondary)', lineHeight: 1.7, margin: 0 }}>
+                <p style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '14px', fontWeight: 500, color: 'var(--color-text-secondary)', lineHeight: 1.7, margin: 0 }}>
                   {step.body}
                 </p>
               </div>
@@ -248,11 +255,11 @@ const faqSchema = {
         <div style="text-align: center; margin-top: 44px;">
           <a
             href="/form"
-            style="display: inline-flex; align-items: center; gap: 8px; background-color: var(--color-blue); color: #fff; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 15px; font-weight: 700; padding: 14px 30px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 18px rgba(65,105,232,0.30);"
+            style="display: inline-flex; align-items: center; gap: 8px; background-color: var(--color-blue); color: #fff; font-family: 'Poppins', system-ui, sans-serif; font-size: 15px; font-weight: 600; padding: 14px 30px; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 18px rgba(21,84,209,0.30);"
             class="hover:opacity-90 transition-opacity"
           >
             Start for free
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <Icon name="tabler:arrow-right" width="15" height="15" />
           </a>
         </div>
 
@@ -265,22 +272,21 @@ const faqSchema = {
 
         <div style="display: flex; align-items: center; gap: 48px; flex-wrap: wrap; margin-bottom: 48px;">
           <!-- Text -->
-          <div style="flex: 1; min-width: min(100%, 320px);">
-            <span style="display: inline-block; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12px; font-weight: 700; color: var(--color-teal); text-transform: uppercase; letter-spacing: 0.08em; background: var(--color-teal-light); border-radius: 9999px; padding: 4px 14px; margin-bottom: 14px;">W-9 Explained</span>
-            <h2 style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; font-size: clamp(22px, 3vw, 30px); color: var(--color-text-primary); margin: 0 0 12px; line-height: 1.25;">
+          <div class="reveal" style="flex: 1; min-width: min(100%, 320px);">
+            <h2 style="font-family: 'Poppins', system-ui, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 30px); color: var(--color-text-primary); margin: 0 0 12px; line-height: 1.25;">
               What is a W-9, and who needs one?
             </h2>
-            <p style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 15px; font-weight: 500; color: var(--color-text-secondary); margin: 0; line-height: 1.65;">
+            <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 500; color: var(--color-text-secondary); margin: 0; line-height: 1.65;">
               Everything a freelancer or contractor needs to know, in plain English.
             </p>
           </div>
           <!-- Illustration -->
-          <div style="flex-shrink: 0; width: clamp(120px, 22%, 200px); margin: 0 auto;">
+          <div class="reveal" style="--d: .1s; flex-shrink: 0; width: clamp(120px, 22%, 200px); margin: 0 auto;">
             <img
               src="/illustrations/w9-complete.png"
               alt="W-9 form with checkmarks"
               width="200"
-              height="200"
+              height="240"
               style="width: 100%; height: auto;"
               loading="lazy"
             />
@@ -290,45 +296,50 @@ const faqSchema = {
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {[
             {
-              icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
-              color: '#4169E8',
-              bg: '#E8EEFF',
+              icon: 'tabler:file-text',
+              color: '#1554D1',
+              bg: '#E7EFFB',
               title: 'What is a W-9?',
               body: "A short IRS form that tells whoever is paying you who you are for tax purposes. You fill it out and give it to them; it never goes to the IRS.",
+              delay: '.08s',
             },
             {
-              icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-              color: '#0D9488',
-              bg: '#CCFBF1',
+              icon: 'tabler:id-badge-2',
+              color: '#0F766E',
+              bg: '#D6F1EE',
               title: 'Who needs to fill one out?',
               body: 'Anyone being paid as an independent contractor or freelancer. If a client, platform, or company asked you for one, you need it before they can pay you.',
+              delay: '.14s',
             },
             {
-              icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
-              color: '#7C3AED',
-              bg: '#F5F3FF',
+              icon: 'tabler:square-check',
+              color: '#6D28D9',
+              bg: '#F1EBFB',
               title: 'W-9 vs. W-4: the difference',
               body: "A W-4 is for employees and tells your employer how much to withhold. A W-9 is for contractors. No withholding happens, so you're responsible for your own taxes.",
+              delay: '.20s',
             },
             {
-              icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+              icon: 'tabler:calendar-due',
               color: '#D97706',
               bg: '#FEF3C7',
               title: 'What happens after you submit?',
               body: "They keep it on file and use it to send you a 1099 at year-end if they paid you $600 or more. You don't hear from the IRS directly as a result of submitting a W-9.",
+              delay: '.26s',
             },
           ].map(block => (
-            <div style={{ backgroundColor: '#F8FAFF', border: '1.5px solid var(--color-border-brand)', borderRadius: 20, padding: '24px', boxShadow: '0 1px 6px rgba(29,52,97,0.05)', transition: 'box-shadow 0.15s' }} class="hover:shadow-md">
+            <div class="reveal hover:shadow-md" style={{ '--d': block.delay, backgroundColor: '#F8FAFF', border: '1.5px solid var(--color-border-brand)', borderRadius: '8px', padding: '24px', boxShadow: '0 1px 6px rgba(10,37,64,0.05)', transition: 'box-shadow 0.15s' }}>
               <div style="display: flex; align-items: flex-start;">
                 <div
-                  style={`width: 44px; height: 44px; border-radius: 14px; background-color: ${block.bg}; display: flex; align-items: center; justify-content: center; color: ${block.color}; flex-shrink: 0; margin-right: 18px;`}
-                  set:html={block.icon}
-                />
+                  style={`width: 44px; height: 44px; border-radius: 8px; background-color: ${block.bg}; display: flex; align-items: center; justify-content: center; color: ${block.color}; flex-shrink: 0; margin-right: 18px;`}
+                >
+                  <Icon name={block.icon} width="20" height="20" />
+                </div>
                 <div>
-                  <h3 style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 15, fontWeight: 800, color: 'var(--color-text-primary)', margin: '0 0 7px', lineHeight: 1.3 }}>
+                  <h3 style={{ fontFamily: "'Poppins', system-ui, sans-serif", fontSize: '15px', fontWeight: 600, color: 'var(--color-text-primary)', margin: '0 0 7px', lineHeight: 1.3 }}>
                     {block.title}
                   </h3>
-                  <p style={{ fontFamily: "'Plus Jakarta Sans', system-ui, sans-serif", fontSize: 14, fontWeight: 500, color: 'var(--color-text-secondary)', lineHeight: 1.7, margin: 0 }}>
+                  <p style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '14px', fontWeight: 500, color: 'var(--color-text-secondary)', lineHeight: 1.7, margin: 0 }}>
                     {block.body}
                   </p>
                 </div>
@@ -338,9 +349,9 @@ const faqSchema = {
         </div>
 
         <div style="text-align: center; margin-top: 40px;">
-          <a href="/guides" style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 14px; font-weight: 700; color: var(--color-blue); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background: var(--color-blue-light); border-radius: 9999px; padding: 8px 20px;">
+          <a href="/guides" style="font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 700; color: var(--color-blue); text-decoration: none; display: inline-flex; align-items: center; gap: 6px;" class="hover:underline">
             Read more in our W-9 guides
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <Icon name="tabler:arrow-right" width="13" height="13" />
           </a>
         </div>
 
@@ -352,26 +363,27 @@ const faqSchema = {
       <div class="mx-auto max-w-4xl">
 
         <div style="text-align: center; margin-bottom: 48px;">
-          <span style="display: inline-block; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12px; font-weight: 700; color: #D97706; text-transform: uppercase; letter-spacing: 0.08em; background: #FEF3C7; border-radius: 9999px; padding: 4px 14px; margin-bottom: 14px;">Tax Estimator</span>
-          <h2 style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; font-size: clamp(22px, 3vw, 30px); color: var(--color-text-primary); margin: 0 0 12px; line-height: 1.25;">
+          <h2 class="reveal" style="font-family: 'Poppins', system-ui, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 30px); color: var(--color-text-primary); margin: 0 0 12px; line-height: 1.25;">
             Estimate Your Freelance Tax Bill
           </h2>
-          <p style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 15px; font-weight: 500; color: var(--color-text-secondary); margin: 0; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+          <p class="reveal" style="font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 500; color: var(--color-text-secondary); margin: 0; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.6;">
             W-9 filers pay their own taxes — no withholding. See what you might owe and how much to set aside each quarter.
           </p>
         </div>
 
-        <TaxCalculator client:visible />
+        <div class="reveal" style="--d: .1s;">
+          <TaxCalculator client:visible />
+        </div>
 
       </div>
     </section>
 
     <!-- ===== CTA BANNER ===== -->
-    <section style="padding: 80px 24px; background: linear-gradient(145deg, var(--color-navy) 0%, #112756 100%); border-top: 1px solid rgba(255,255,255,0.05);">
+    <section style="padding: 80px 24px; background: linear-gradient(145deg, var(--color-navy) 0%, #071b30 100%); border-top: 1px solid rgba(255,255,255,0.05);">
       <div class="mx-auto max-w-2xl" style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap; justify-content: center;">
 
         <!-- Illustration -->
-        <div style="flex-shrink: 0; width: clamp(120px, 20%, 160px);">
+        <div class="reveal" style="flex-shrink: 0; width: clamp(120px, 20%, 160px);">
           <img
             src="/illustrations/get-pdf.png"
             alt="Person with their completed W-9 PDF"
@@ -383,23 +395,22 @@ const faqSchema = {
         </div>
 
         <!-- Text -->
-        <div style="flex: 1; min-width: min(100%, 280px); text-align: center;">
-          <span style="display: inline-block; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12px; font-weight: 700; color: var(--color-blue-mid); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;">For freelancers &amp; contractors</span>
-          <h2 style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; font-size: clamp(22px, 3vw, 28px); color: #fff; margin: 0 0 14px; line-height: 1.25;">
+        <div class="reveal" style="--d: .1s; flex: 1; min-width: min(100%, 280px); text-align: center;">
+          <h2 style="font-family: 'Poppins', system-ui, sans-serif; font-weight: 600; font-size: clamp(22px, 3vw, 28px); color: #fff; margin: 0 0 14px; line-height: 1.25;">
             Questions about freelance taxes?
           </h2>
-          <p style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 15px; font-weight: 500; color: rgba(200,213,232,0.85); line-height: 1.7; margin: 0 0 28px; max-width: 400px; margin-left: auto; margin-right: auto;">
+          <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 500; color: rgba(200,213,232,0.85); line-height: 1.7; margin: 0 0 28px; max-width: 400px; margin-left: auto; margin-right: auto;">
             A lot of W-9 filers are surprised to learn they owe quarterly estimated taxes. A free consultation with a tax professional can help you understand what's coming.
           </p>
           <a
             href="https://1800accountant.com/lp/join-now"
-            style="display: inline-flex; align-items: center; gap: 8px; background-color: #fff; color: var(--color-navy); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 15px; font-weight: 700; padding: 14px 30px; border-radius: 50px; text-decoration: none; box-shadow: 0 4px 20px rgba(0,0,0,0.20);"
+            style="display: inline-flex; align-items: center; gap: 8px; background-color: #fff; color: var(--color-navy); font-family: 'Poppins', system-ui, sans-serif; font-size: 15px; font-weight: 600; padding: 14px 30px; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 20px rgba(0,0,0,0.20);"
             class="hover:opacity-90 transition-opacity"
           >
             Get a free consultation
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <Icon name="tabler:arrow-right" width="15" height="15" />
           </a>
-          <p style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12px; color: rgba(255,255,255,0.3); margin: 12px 0 0;">No obligation. Takes 15 minutes.</p>
+          <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 12px; color: rgba(255,255,255,0.3); margin: 12px 0 0;">No obligation. Takes 15 minutes.</p>
         </div>
 
       </div>

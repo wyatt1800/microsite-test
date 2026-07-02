@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { IconShieldCheck, IconFileDownload, IconRefresh, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import type { W9FormData } from '@/lib/fillW9PDF';
 
 const TOTAL_STEPS = 6;
@@ -69,7 +70,8 @@ interface StepProps {
   errors: Partial<Record<keyof W9FormData, string>>;
 }
 
-const FONT = "'Plus Jakarta Sans', system-ui, sans-serif";
+const FONT = "'Inter', system-ui, sans-serif";
+const FONT_HEADING = "'Poppins', system-ui, sans-serif";
 
 function FieldWrapper({ label, hint, error, children }: { label: string; hint?: string; error?: string; children: React.ReactNode }) {
   return (
@@ -97,7 +99,7 @@ const inputStyle: React.CSSProperties = {
   fontSize: 14,
   fontWeight: 500,
   border: '1.5px solid var(--color-border-brand)',
-  borderRadius: 12,
+  borderRadius: 8,
   padding: '10px 14px',
   outline: 'none',
   width: '100%',
@@ -127,7 +129,7 @@ function TextInput({ value, onChange, placeholder, onFocus, onBlur, style }: {
         ...inputStyle,
         ...style,
         borderColor: focused ? 'var(--color-blue)' : 'var(--color-border-brand)',
-        boxShadow: focused ? '0 0 0 3px rgba(65,105,232,0.10)' : 'none',
+        boxShadow: focused ? '0 0 0 3px rgba(21,84,209,0.10)' : 'none',
       }}
     />
   );
@@ -178,7 +180,7 @@ function Step2({ data, onChange, errors }: StepProps) {
             gap: 12,
             padding: '12px 16px',
             border: `1.5px solid ${data.taxClassification === cls.value ? 'var(--color-blue)' : 'var(--color-border-brand)'}`,
-            borderRadius: 14,
+            borderRadius: 8,
             cursor: 'pointer',
             backgroundColor: data.taxClassification === cls.value ? 'var(--color-blue-light)' : '#fff',
             transition: 'border-color 0.15s, background-color 0.15s',
@@ -215,7 +217,7 @@ function Step3({ data, onChange }: StepProps) {
         style={{
           backgroundColor: 'var(--color-blue-light)',
           border: '1px solid var(--color-blue-mid)',
-          borderRadius: 14,
+          borderRadius: 8,
           padding: '12px 16px',
           fontFamily: FONT,
           fontSize: 13,
@@ -257,7 +259,7 @@ function Step4({ data, onChange, errors }: StepProps) {
     return {
       ...inputStyle,
       borderColor: focused === field ? 'var(--color-blue)' : 'var(--color-border-brand)',
-      boxShadow: focused === field ? '0 0 0 3px rgba(65,105,232,0.10)' : 'none',
+      boxShadow: focused === field ? '0 0 0 3px rgba(21,84,209,0.10)' : 'none',
     };
   }
 
@@ -317,7 +319,7 @@ function Step5({ data, onChange, errors }: StepProps) {
               gap: 10,
               padding: '12px 16px',
               border: `1.5px solid ${data.tinType === type ? 'var(--color-blue)' : 'var(--color-border-brand)'}`,
-              borderRadius: 14,
+              borderRadius: 8,
               cursor: 'pointer',
               backgroundColor: data.tinType === type ? 'var(--color-blue-light)' : '#fff',
               transition: 'border-color 0.15s, background-color 0.15s',
@@ -355,7 +357,7 @@ function Step5({ data, onChange, errors }: StepProps) {
             ...inputStyle,
             letterSpacing: '0.08em',
             borderColor: focused ? 'var(--color-blue)' : errors.tin ? 'var(--color-error)' : 'var(--color-border-brand)',
-            boxShadow: focused ? '0 0 0 3px rgba(65,105,232,0.10)' : 'none',
+            boxShadow: focused ? '0 0 0 3px rgba(21,84,209,0.10)' : 'none',
           }}
         />
       </FieldWrapper>
@@ -368,12 +370,10 @@ function Step5({ data, onChange, errors }: StepProps) {
           padding: '12px 16px',
           backgroundColor: 'var(--color-teal-light)',
           border: '1px solid #99f6e4',
-          borderRadius: 14,
+          borderRadius: 8,
         }}
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-teal)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginTop: 2, flexShrink: 0 }}>
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-        </svg>
+        <IconShieldCheck size={16} color="var(--color-teal)" style={{ marginTop: 2, flexShrink: 0 }} />
         <p style={{ fontFamily: FONT, fontSize: 12.5, fontWeight: 500, color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.6 }}>
           Your taxpayer ID stays in your browser and is used only to fill your PDF. It is never transmitted to any server.
         </p>
@@ -406,7 +406,7 @@ function ReviewRow({ label, value, onEdit }: ReviewRowProps) {
           border: 'none',
           cursor: 'pointer',
           padding: '4px 10px',
-          borderRadius: 9999,
+          borderRadius: 8,
         }}
         className="hover:bg-blue-50 transition-colors"
       >
@@ -449,7 +449,7 @@ function Step6({ data, onGoToStep, onDownload, isGenerating }: {
           style={{
             backgroundColor: 'var(--color-blue-light)',
             border: '1px solid var(--color-blue-mid)',
-            borderRadius: 14,
+            borderRadius: 8,
             padding: '12px 16px',
           }}
         >
@@ -466,13 +466,13 @@ function Step6({ data, onGoToStep, onDownload, isGenerating }: {
           onClick={onDownload}
           disabled={isGenerating}
           style={{
-            fontFamily: FONT,
-            fontWeight: 700,
+            fontFamily: FONT_HEADING,
+            fontWeight: 600,
             fontSize: 15,
-            backgroundColor: isGenerating ? '#6ee7b7' : 'var(--color-teal)',
+            backgroundColor: isGenerating ? '#7DD3C8' : 'var(--color-teal)',
             color: '#fff',
             border: 'none',
-            borderRadius: 50,
+            borderRadius: 8,
             padding: '14px 24px',
             cursor: isGenerating ? 'wait' : 'pointer',
             display: 'flex',
@@ -481,22 +481,18 @@ function Step6({ data, onGoToStep, onDownload, isGenerating }: {
             gap: 8,
             transition: 'background-color 0.15s',
             width: '100%',
-            boxShadow: isGenerating ? 'none' : '0 4px 16px rgba(13,148,136,0.30)',
+            boxShadow: isGenerating ? 'none' : '0 4px 16px rgba(15,118,110,0.30)',
           }}
         >
           {isGenerating ? (
             <>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
-                <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-              </svg>
+              <IconRefresh size={16} style={{ animation: 'spin 1s linear infinite' }} />
               Generating PDF...
             </>
           ) : (
             <>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-              Download your W-9 PDF →
+              <IconFileDownload size={16} />
+              Download your W-9 PDF
             </>
           )}
         </button>
@@ -633,18 +629,22 @@ export default function W9Form({ onPdfReady }: W9FormProps) {
             <button
               onClick={goBack}
               style={{
-                fontFamily: FONT,
+                fontFamily: FONT_HEADING,
                 fontSize: 14,
                 fontWeight: 600,
                 color: 'var(--color-text-secondary)',
                 background: 'none',
                 border: '1.5px solid var(--color-border-brand)',
-                borderRadius: 50,
+                borderRadius: 8,
                 padding: '10px 22px',
                 cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
               }}
             >
-              ← Back
+              <IconChevronLeft size={15} />
+              Back
             </button>
           ) : (
             <span />
@@ -652,19 +652,23 @@ export default function W9Form({ onPdfReady }: W9FormProps) {
           <button
             onClick={goNext}
             style={{
-              fontFamily: FONT,
+              fontFamily: FONT_HEADING,
               fontSize: 14,
-              fontWeight: 700,
+              fontWeight: 600,
               color: '#fff',
               backgroundColor: 'var(--color-blue)',
               border: 'none',
-              borderRadius: 50,
+              borderRadius: 8,
               padding: '10px 26px',
               cursor: 'pointer',
-              boxShadow: '0 3px 12px rgba(65,105,232,0.28)',
+              boxShadow: '0 3px 12px rgba(21,84,209,0.28)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
             }}
           >
-            Continue →
+            Continue
+            <IconChevronRight size={15} />
           </button>
         </div>
       )}

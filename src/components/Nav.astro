@@ -1,4 +1,6 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 interface Props {
   currentPath?: string;
 }
@@ -11,39 +13,37 @@ const { currentPath = '/' } = Astro.props;
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2.5 min-w-0">
         <img
-          src="/logo.png"
+          src="/w9-helper-logo-light.png"
           alt="W9 Helper"
-          width="38"
-          height="38"
-          style="flex-shrink: 0; border-radius: 10px;"
+          width="98"
+          height="30"
+          style="flex-shrink: 0; height: 30px; width: auto;"
         />
-        <span style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 700; font-size: 17px; white-space: nowrap;">
-          <span style="color: #fff;">W9</span><span style="color: var(--color-blue-mid); font-style: italic;">Helper</span>
-        </span>
       </a>
 
       <!-- Nav links -->
       <div class="flex items-center gap-6">
         <a
           href="/#how-it-works"
-          style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 14px; font-weight: 600; color: var(--color-slate-mid); text-decoration: none;"
+          style="font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 600; color: var(--color-slate-mid); text-decoration: none;"
           class="hover:text-white transition-colors"
         >
           How it works
         </a>
         <a
           href="/guides"
-          style={`font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; color: ${currentPath.startsWith('/guides') ? '#fff' : 'var(--color-slate-mid)'};`}
+          style={`font-family: 'Inter', system-ui, sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; color: ${currentPath.startsWith('/guides') ? '#fff' : 'var(--color-slate-mid)'};`}
           class="hover:text-white transition-colors"
         >
           Guides
         </a>
         <a
           href="/form"
-          style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 13px; font-weight: 700; background-color: var(--color-blue); color: #fff; padding: 8px 20px; border-radius: 50px; text-decoration: none; box-shadow: 0 2px 10px rgba(65,105,232,0.40);"
+          style="font-family: 'Poppins', system-ui, sans-serif; font-size: 13px; font-weight: 600; background-color: var(--color-blue); color: #fff; padding: 8px 20px; border-radius: 8px; text-decoration: none; box-shadow: 0 2px 10px rgba(21,84,209,0.40); display: inline-flex; align-items: center; gap: 6px;"
           class="hover:opacity-90 transition-opacity hidden sm:inline-flex"
         >
-          Start your W-9 →
+          Start your W-9
+          <Icon name="tabler:arrow-right" width="15" height="15" />
         </a>
       </div>
     </div>

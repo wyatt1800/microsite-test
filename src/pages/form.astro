@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import W9FormIsland from '../components/W9FormIsland';
+import { Icon } from 'astro-icon/components';
 ---
 
 <BaseLayout
@@ -16,24 +17,24 @@ import W9FormIsland from '../components/W9FormIsland';
       <div class="mx-auto max-w-2xl">
 
         <div style="text-align: center; margin-bottom: 36px;">
-          <div style="display: inline-flex; align-items: center; gap: 6px; background: var(--color-blue-light); border-radius: 9999px; padding: 5px 14px; margin-bottom: 16px;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-            <span style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12px; font-weight: 700; color: var(--color-blue);">Free · No account required</span>
+          <div style="display: inline-flex; align-items: center; gap: 6px; background: var(--color-blue-light); border-radius: 8px; padding: 5px 14px; margin-bottom: 16px;">
+            <Icon name="tabler:circle-check" width="13" height="13" color="var(--color-blue)" />
+            <span style="font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 700; color: var(--color-blue);">Free · No account required</span>
           </div>
-          <h1 style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; font-size: clamp(26px, 4vw, 36px); color: var(--color-text-primary); margin: 0 0 12px; line-height: 1.2;">
+          <h1 style="font-family: 'Poppins', system-ui, sans-serif; font-weight: 600; font-size: clamp(26px, 4vw, 36px); color: var(--color-text-primary); margin: 0 0 12px; line-height: 1.2;">
             Fill Out Your W-9
           </h1>
-          <p style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 15px; font-weight: 500; color: var(--color-text-secondary); margin: 0; line-height: 1.65; max-width: 380px; margin-left: auto; margin-right: auto;">
+          <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 500; color: var(--color-text-secondary); margin: 0; line-height: 1.65; max-width: 380px; margin-left: auto; margin-right: auto;">
             Clear guidance at every field. Most people finish in under 3 minutes.
           </p>
         </div>
 
-        <div style="background: #fff; border: 1.5px solid var(--color-border-brand); border-radius: 24px; padding: 40px 36px; box-shadow: 0 4px 28px rgba(29,52,97,0.08);">
+        <div style="background: #fff; border: 1.5px solid var(--color-border-brand); border-radius: 8px; padding: 40px 36px; box-shadow: 0 4px 28px rgba(10,37,64,0.08);">
           <W9FormIsland client:load />
         </div>
 
-        <p style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 12px; font-weight: 500; color: var(--color-text-muted); text-align: center; margin: 18px 0 0; line-height: 1.6; display: flex; align-items: center; justify-content: center; gap: 6px;">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 500; color: var(--color-text-muted); text-align: center; margin: 18px 0 0; line-height: 1.6; display: flex; align-items: center; justify-content: center; gap: 6px;">
+          <Icon name="tabler:shield-check" width="12" height="12" />
           Your SSN or EIN is used only to generate your PDF and never leaves your browser.
         </p>
 

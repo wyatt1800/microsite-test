@@ -46,7 +46,7 @@ const pageSchemas: Record<string, unknown>[] = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <title>{title}</title>
 
     <!-- Open Graph -->
@@ -67,13 +67,16 @@ const pageSchemas: Record<string, unknown>[] = [
     <!-- JSON-LD structured data -->
     <script type="application/ld+json" set:html={JSON.stringify(pageSchemas)} />
 
-    <!-- Google Fonts: Plus Jakarta Sans (humanist sans-serif) -->
+    <!-- Google Fonts: Poppins (headings) + Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Adds .js before paint so .reveal elements start hidden only when JS can animate them -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
 
     <!-- Google Tag Manager -->
     {env.PUBLIC_GTM_CONTAINER_ID && (
@@ -94,7 +97,7 @@ const pageSchemas: Record<string, unknown>[] = [
       </script>
     )}
   </head>
-  <body class="min-h-screen antialiased" style="background-color: var(--color-off-white); color: var(--color-text-primary); font-family: 'Plus Jakarta Sans', system-ui, sans-serif;">
+  <body class="min-h-screen antialiased" style="background-color: var(--color-off-white); color: var(--color-text-primary); font-family: 'Inter', system-ui, sans-serif;">
     <!-- Google Tag Manager (noscript) -->
     {env.PUBLIC_GTM_CONTAINER_ID && (
       <noscript>
@@ -108,5 +111,24 @@ const pageSchemas: Record<string, unknown>[] = [
     )}
 
     <slot />
+
+    <script is:inline>
+      (function () {
+        var els = document.querySelectorAll('.reveal');
+        if (!('IntersectionObserver' in window)) {
+          els.forEach(function (el) { el.classList.add('in-view'); });
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+        els.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
   </body>
 </html>

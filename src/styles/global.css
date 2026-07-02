@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
-    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-heading: 'Poppins', system-ui, sans-serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -72,7 +72,7 @@
     --chart-3: oklch(0.439 0 0);
     --chart-4: oklch(0.371 0 0);
     --chart-5: oklch(0.269 0 0);
-    --radius: 1rem;
+    --radius: 0.5rem;
     --sidebar: oklch(0.96 0.02 260);
     --sidebar-foreground: oklch(0.18 0.03 260);
     --sidebar-primary: oklch(0.52 0.19 264);
@@ -82,24 +82,26 @@
     --sidebar-border: oklch(0.88 0.02 260);
     --sidebar-ring: oklch(0.70 0.05 260);
 
-    /* W9 Helper brand palette — soft 2D, cartoony, calm */
-    --color-blue: #4169E8;
-    --color-blue-light: #E8EEFF;
-    --color-blue-mid: #A8BCFF;
-    --color-navy: #1D3461;
-    --color-teal: #0D9488;
-    --color-teal-light: #CCFBF1;
-    --color-slate: #5A6E8C;
-    --color-slate-light: #F0F5FF;
-    --color-slate-mid: #C8D5E8;
-    --color-off-white: #F0F5FF;
+    /* W9 Helper brand palette — Brand Guide V1 */
+    --color-blue: #1554D1;         /* Action blue */
+    --color-blue-light: #E7EFFB;   /* Action blue tint */
+    --color-blue-mid: #7C9EF0;     /* Action blue, lightened */
+    --color-navy: #0A2540;         /* Ink navy */
+    --color-teal: #0F766E;         /* Teal */
+    --color-teal-light: #D6F1EE;   /* Teal tint */
+    --color-violet: #6D28D9;       /* Violet accent */
+    --color-violet-light: #F1EBFB; /* Violet tint */
+    --color-slate: #64748B;        /* Muted */
+    --color-slate-light: #EFF6FF;  /* Surface tint */
+    --color-slate-mid: #9FB0C9;
+    --color-off-white: #EFF6FF;    /* Surface tint */
     --color-white: #FFFFFF;
-    --color-text-primary: #1A2B48;
-    --color-text-secondary: #5A6E8C;
-    --color-text-muted: #9AAFC8;
-    --color-border-brand: #D0DCEF;
-    --color-success: #059669;
-    --color-success-light: #D1FAE5;
+    --color-text-primary: #0A2540; /* Ink navy */
+    --color-text-secondary: #334155; /* Body slate */
+    --color-text-muted: #64748B;   /* Muted */
+    --color-border-brand: #E2E8F0; /* Hairline */
+    --color-success: #047857;      /* Trust green */
+    --color-success-light: #D9F2E7;
     --color-warning: #D97706;
     --color-warning-light: #FEF3C7;
     --color-error: #DC2626;
@@ -121,12 +123,34 @@
 }
 
 .font-heading {
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-weight: 800;
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-weight: 600;
 }
 
 .font-heading-italic {
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  font-weight: 800;
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-weight: 600;
   font-style: italic;
+}
+
+/* Scroll reveal — fade-up on enter, fires once, respects reduced motion */
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--d, 0s);
+  will-change: opacity, transform;
+}
+
+html.js .reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .reveal {
+    transform: none;
+    transition: opacity 0.5s ease;
+  }
 }

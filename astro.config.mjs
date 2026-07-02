@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
+import icon from 'astro-icon';
 import awsAmplify from 'astro-aws-amplify';
 
 // https://astro.build/config
@@ -18,6 +19,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     react(),
+    icon(),
     sitemap({
       filter: (page) => !page.includes('/api/'),
     }),

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { IconCircleCheck } from '@tabler/icons-react';
 import type { W9FormData } from '@/lib/fillW9PDF';
 
 interface LeadCaptureProps {
@@ -16,14 +17,15 @@ const PERSONA_OPTIONS = [
   { value: 'other', label: 'Other' },
 ];
 
-const FONT = "'Plus Jakarta Sans', system-ui, sans-serif";
+const FONT = "'Inter', system-ui, sans-serif";
+const FONT_HEADING = "'Poppins', system-ui, sans-serif";
 
 const inputStyle: React.CSSProperties = {
   fontFamily: FONT,
   fontSize: 14,
   fontWeight: 500,
   border: '1.5px solid var(--color-border-brand)',
-  borderRadius: 12,
+  borderRadius: 8,
   padding: '10px 14px',
   outline: 'none',
   width: '100%',
@@ -43,7 +45,7 @@ export default function LeadCapture({ pdfData, onDirectDownload }: LeadCapturePr
     return {
       ...inputStyle,
       borderColor: focusedField === field ? 'var(--color-blue)' : 'var(--color-border-brand)',
-      boxShadow: focusedField === field ? '0 0 0 3px rgba(65,105,232,0.10)' : 'none',
+      boxShadow: focusedField === field ? '0 0 0 3px rgba(21,84,209,0.10)' : 'none',
     };
   }
 
@@ -73,18 +75,16 @@ export default function LeadCapture({ pdfData, onDirectDownload }: LeadCapturePr
       <div
         style={{
           backgroundColor: 'var(--color-success-light)',
-          border: '1px solid #6ee7b7',
-          borderRadius: 20,
+          border: '1px solid #86dcb8',
+          borderRadius: 8,
           padding: '32px 28px',
           textAlign: 'center',
         }}
       >
-        <div style={{ width: 48, height: 48, borderRadius: 9999, backgroundColor: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
+        <div style={{ width: 48, height: 48, borderRadius: 9999, backgroundColor: 'var(--color-success)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
+          <IconCircleCheck size={22} color="#fff" />
         </div>
-        <p style={{ fontFamily: FONT, fontWeight: 800, fontSize: 20, color: 'var(--color-text-primary)', margin: '0 0 8px' }}>
+        <p style={{ fontFamily: FONT_HEADING, fontWeight: 600, fontSize: 20, color: 'var(--color-text-primary)', margin: '0 0 8px' }}>
           You're all set.
         </p>
         <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 500, color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.6 }}>
@@ -97,7 +97,7 @@ export default function LeadCapture({ pdfData, onDirectDownload }: LeadCapturePr
   return (
     <div>
       <div style={{ marginBottom: 20 }}>
-        <h3 style={{ fontFamily: FONT, fontWeight: 800, fontSize: 22, color: 'var(--color-text-primary)', margin: '0 0 8px' }}>
+        <h3 style={{ fontFamily: FONT_HEADING, fontWeight: 600, fontSize: 22, color: 'var(--color-text-primary)', margin: '0 0 8px' }}>
           Your W-9 is ready.
         </h3>
         <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 500, color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.6 }}>
@@ -110,7 +110,7 @@ export default function LeadCapture({ pdfData, onDirectDownload }: LeadCapturePr
           style={{
             backgroundColor: 'var(--color-error-light)',
             border: '1px solid #fca5a5',
-            borderRadius: 12,
+            borderRadius: 8,
             padding: '10px 14px',
             marginBottom: 16,
             fontFamily: FONT,
@@ -193,21 +193,21 @@ export default function LeadCapture({ pdfData, onDirectDownload }: LeadCapturePr
           type="submit"
           disabled={submitState === 'submitting'}
           style={{
-            fontFamily: FONT,
-            fontWeight: 700,
+            fontFamily: FONT_HEADING,
+            fontWeight: 600,
             fontSize: 15,
             backgroundColor: submitState === 'submitting' ? 'var(--color-blue-mid)' : 'var(--color-blue)',
             color: '#fff',
             border: 'none',
-            borderRadius: 50,
+            borderRadius: 8,
             padding: '13px 24px',
             cursor: submitState === 'submitting' ? 'wait' : 'pointer',
             width: '100%',
             transition: 'background-color 0.15s',
-            boxShadow: submitState === 'submitting' ? 'none' : '0 3px 12px rgba(65,105,232,0.28)',
+            boxShadow: submitState === 'submitting' ? 'none' : '0 3px 12px rgba(21,84,209,0.28)',
           }}
         >
-          {submitState === 'submitting' ? 'Sending...' : 'Email me my W-9 →'}
+          {submitState === 'submitting' ? 'Sending...' : 'Email me my W-9'}
         </button>
 
         <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: 'var(--color-text-muted)', textAlign: 'center', margin: 0, lineHeight: 1.6 }}>

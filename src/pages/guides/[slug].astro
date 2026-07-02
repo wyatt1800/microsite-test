@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
+import { Icon } from 'astro-icon/components';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
@@ -34,7 +35,7 @@ const highlights = guide.data.highlights ?? [];
 
         <!-- Breadcrumb -->
         <nav style="margin-bottom: 28px;" aria-label="Breadcrumb">
-          <ol style="display: flex; align-items: center; gap: 8px; list-style: none; margin: 0; padding: 0; font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; color: var(--color-text-muted);">
+          <ol style="display: flex; align-items: center; gap: 8px; list-style: none; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; font-size: 13px; color: var(--color-text-muted);">
             <li><a href="/" style="color: var(--color-blue); text-decoration: none;">W9 Helper</a></li>
             <li aria-hidden="true">›</li>
             <li><a href="/guides" style="color: var(--color-blue); text-decoration: none;">Guides</a></li>
@@ -45,36 +46,32 @@ const highlights = guide.data.highlights ?? [];
 
         <!-- Article -->
         <article
-          style="background: #fff; border: 1px solid var(--color-border-brand); border-radius: 16px; overflow: hidden; box-shadow: 0 1px 4px rgba(15,23,42,0.06);"
+          style="background: #fff; border: 1px solid var(--color-border-brand); border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(10,37,64,0.06);"
         >
           <!-- Article header band -->
           <div style="padding: 36px 36px 0;">
             <h1
-              style="font-family: 'DM Serif Display', Georgia, serif; font-size: 30px; color: var(--color-text-primary); margin: 0 0 14px; line-height: 1.22;"
+              style="font-family: 'Poppins', system-ui, sans-serif; font-weight: 600; font-size: 30px; color: var(--color-text-primary); margin: 0 0 14px; line-height: 1.22;"
             >
               {guide.data.title}
             </h1>
-            <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 15px; color: var(--color-text-secondary); margin: 0; line-height: 1.65;">
+            <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 15px; color: var(--color-text-secondary); margin: 0; line-height: 1.65;">
               {guide.data.description}
             </p>
           </div>
 
           <!-- Key highlights box -->
           {highlights.length > 0 && (
-            <div style="margin: 28px 36px 0; background: var(--color-blue-light); border: 1px solid var(--color-blue-mid); border-radius: 12px; padding: 20px 22px;">
+            <div style="margin: 28px 36px 0; background: var(--color-blue-light); border: 1px solid var(--color-blue-mid); border-radius: 8px; padding: 20px 22px;">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-                </svg>
-                <span style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 12px; font-weight: 700; color: var(--color-blue); text-transform: uppercase; letter-spacing: 0.07em;">Key highlights</span>
+                <Icon name="tabler:info-circle" width="15" height="15" color="var(--color-blue)" />
+                <span style="font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 700; color: var(--color-blue); text-transform: uppercase; letter-spacing: 0.07em;">Key highlights</span>
               </div>
               <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
                 {highlights.map((point: string) => (
-                  <li style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>
-                      <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                    <span style={{ fontFamily: "'DM Sans', system-ui, sans-serif", fontSize: 14, color: 'var(--color-text-primary)', lineHeight: 1.55 }}>{point}</span>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                    <Icon name="tabler:circle-check" width="14" height="14" color="var(--color-blue)" style={{ flexShrink: 0, marginTop: '2px' }} />
+                    <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontSize: '14px', color: 'var(--color-text-primary)', lineHeight: 1.55 }}>{point}</span>
                   </li>
                 ))}
               </ul>
@@ -96,15 +93,13 @@ const highlights = guide.data.highlights ?? [];
             {prevGuide && (
               <a
                 href={`/guides/${prevGuide.id}`}
-                style="flex: 1; min-width: 200px; display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--color-border-brand); border-radius: 10px; padding: 14px 18px; text-decoration: none; transition: border-color 0.15s, box-shadow 0.15s;"
+                style="flex: 1; min-width: 200px; display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--color-border-brand); border-radius: 8px; padding: 14px 18px; text-decoration: none; transition: border-color 0.15s, box-shadow 0.15s;"
                 class="hover:border-blue-300 hover:shadow-sm"
               >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
-                  <path d="M19 12H5M12 19l-7-7 7-7"/>
-                </svg>
+                <Icon name="tabler:chevron-left" width="15" height="15" color="var(--color-blue)" style={{ flexShrink: 0 }} />
                 <div>
-                  <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; color: var(--color-text-muted); margin: 0 0 2px; text-transform: uppercase; letter-spacing: 0.05em;">Previous</p>
-                  <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 500; margin: 0; color: var(--color-blue);">
+                  <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 11px; color: var(--color-text-muted); margin: 0 0 2px; text-transform: uppercase; letter-spacing: 0.05em;">Previous</p>
+                  <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 500; margin: 0; color: var(--color-blue);">
                     {prevGuide.data.title}
                   </p>
                 </div>
@@ -113,18 +108,16 @@ const highlights = guide.data.highlights ?? [];
             {nextGuide && (
               <a
                 href={`/guides/${nextGuide.id}`}
-                style="flex: 1; min-width: 200px; display: flex; align-items: center; justify-content: flex-end; gap: 10px; background: #fff; border: 1px solid var(--color-border-brand); border-radius: 10px; padding: 14px 18px; text-decoration: none; transition: border-color 0.15s, box-shadow 0.15s; text-align: right;"
+                style="flex: 1; min-width: 200px; display: flex; align-items: center; justify-content: flex-end; gap: 10px; background: #fff; border: 1px solid var(--color-border-brand); border-radius: 8px; padding: 14px 18px; text-decoration: none; transition: border-color 0.15s, box-shadow 0.15s; text-align: right;"
                 class="hover:border-blue-300 hover:shadow-sm"
               >
                 <div>
-                  <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; color: var(--color-text-muted); margin: 0 0 2px; text-transform: uppercase; letter-spacing: 0.05em;">Next</p>
-                  <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; font-weight: 500; margin: 0; color: var(--color-blue);">
+                  <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 11px; color: var(--color-text-muted); margin: 0 0 2px; text-transform: uppercase; letter-spacing: 0.05em;">Next</p>
+                  <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 500; margin: 0; color: var(--color-blue);">
                     {nextGuide.data.title}
                   </p>
                 </div>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
+                <Icon name="tabler:chevron-right" width="15" height="15" color="var(--color-blue)" style={{ flexShrink: 0 }} />
               </a>
             )}
           </nav>
@@ -132,23 +125,23 @@ const highlights = guide.data.highlights ?? [];
 
         <!-- CTA -->
         <div
-          style="margin-top: 24px; background-color: var(--color-navy); border-radius: 14px; padding: 28px 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px;"
+          style="margin-top: 24px; background-color: var(--color-navy); border-radius: 8px; padding: 28px 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px;"
         >
           <div>
-            <p style="font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: #fff; margin: 0 0 6px; line-height: 1.2;">
+            <p style="font-family: 'Poppins', system-ui, sans-serif; font-weight: 600; font-size: 20px; color: #fff; margin: 0 0 6px; line-height: 1.2;">
               Ready to fill out your W-9?
             </p>
-            <p style="font-family: 'DM Sans', system-ui, sans-serif; font-size: 13px; color: rgba(203,213,225,0.7); margin: 0;">
+            <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 13px; color: rgba(203,213,225,0.7); margin: 0;">
               Takes about three minutes. Free PDF download.
             </p>
           </div>
           <a
             href="/form"
-            style="display: inline-flex; align-items: center; gap: 7px; background-color: var(--color-blue); color: #fff; font-family: 'DM Sans', system-ui, sans-serif; font-size: 14px; font-weight: 600; padding: 12px 22px; border-radius: 8px; text-decoration: none; flex-shrink: 0; box-shadow: 0 4px 16px rgba(37,99,235,0.4);"
+            style="display: inline-flex; align-items: center; gap: 7px; background-color: var(--color-blue); color: #fff; font-family: 'Poppins', system-ui, sans-serif; font-size: 14px; font-weight: 600; padding: 12px 22px; border-radius: 8px; text-decoration: none; flex-shrink: 0; box-shadow: 0 4px 16px rgba(21,84,209,0.4);"
             class="hover:opacity-90 transition-opacity"
           >
             Start your W-9
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <Icon name="tabler:arrow-right" width="13" height="13" />
           </a>
         </div>
 
@@ -161,16 +154,16 @@ const highlights = guide.data.highlights ?? [];
 
 <style is:global>
   .guide-content {
-    font-family: 'DM Sans', system-ui, sans-serif;
+    font-family: 'Inter', system-ui, sans-serif;
     font-size: 15px;
     line-height: 1.78;
     color: var(--color-text-secondary);
   }
 
   .guide-content h2 {
-    font-family: 'DM Serif Display', Georgia, serif;
+    font-family: 'Poppins', system-ui, sans-serif;
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--color-text-primary);
     margin: 42px 0 14px;
     padding-left: 14px;
@@ -179,9 +172,9 @@ const highlights = guide.data.highlights ?? [];
   }
 
   .guide-content h3 {
-    font-family: 'DM Sans', system-ui, sans-serif;
+    font-family: 'Poppins', system-ui, sans-serif;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--color-text-primary);
     margin: 30px 0 10px;
     line-height: 1.4;
@@ -258,7 +251,7 @@ const highlights = guide.data.highlights ?? [];
     margin: 22px 0;
     padding: 14px 20px;
     background-color: var(--color-blue-light);
-    border-radius: 0 10px 10px 0;
+    border-radius: 0 8px 8px 0;
     font-style: italic;
   }
 
