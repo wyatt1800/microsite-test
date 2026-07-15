@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import W9FormSection from '../../components/W9FormSection.astro';
+
+interface StepParams {
+  initialStep: number;
+  initialStage?: 'form' | 'lead-capture' | 'upsell';
+}
+
+export function getStaticPaths() {
+  return [
+    { params: { step: 'step-2' }, props: { initialStep: 2 } },
+    { params: { step: 'step-3' }, props: { initialStep: 3 } },
+    { params: { step: 'step-4' }, props: { initialStep: 4 } },
+    { params: { step: 'step-5' }, props: { initialStep: 5 } },
+    { params: { step: 'step-6' }, props: { initialStep: 6 } },
+    { params: { step: 'complete' }, props: { initialStep: 6, initialStage: 'lead-capture' } },
+    { params: { step: 'next-steps' }, props: { initialStep: 6, initialStage: 'upsell' } },
+  ];
+}
+
+const { initialStep, initialStage } = Astro.props as StepParams;
+---
+
+<BaseLayout
+  title="Fill Out Your W-9 — W9 Helper"
+  description="Complete your W-9 form online for free. Clear guidance at every field, download your PDF in minutes."
+>
+  <Nav currentPath="/form" />
+
+  <main>
+    <W9FormSection initialStep={initialStep} initialStage={initialStage} />
+  </main>
+
+  <Footer />
+</BaseLayout>
