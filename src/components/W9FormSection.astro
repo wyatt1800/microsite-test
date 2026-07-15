@@ -1,0 +1,39 @@
+---
+import { Icon } from 'astro-icon/components';
+import W9FormIsland from './W9FormIsland';
+
+interface Props {
+  initialStep?: number;
+  initialStage?: 'form' | 'lead-capture' | 'upsell';
+}
+
+const { initialStep = 1, initialStage = 'form' } = Astro.props;
+---
+
+<section style="padding: 60px 24px 88px; background-color: var(--color-off-white); min-height: calc(100vh - 64px);">
+  <div class="mx-auto max-w-2xl">
+
+    <div style="text-align: center; margin-bottom: 36px;">
+      <div style="display: inline-flex; align-items: center; gap: 6px; background: var(--color-blue-light); border-radius: 8px; padding: 5px 14px; margin-bottom: 16px;">
+        <Icon name="tabler:circle-check" width="13" height="13" color="var(--color-blue)" />
+        <span style="font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 700; color: var(--color-blue);">Free · No account required</span>
+      </div>
+      <h1 style="font-family: 'Poppins', system-ui, sans-serif; font-weight: 600; font-size: clamp(26px, 4vw, 36px); color: var(--color-text-primary); margin: 0 0 12px; line-height: 1.2;">
+        Fill Out Your W-9
+      </h1>
+      <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 500; color: var(--color-text-secondary); margin: 0; line-height: 1.65; max-width: 380px; margin-left: auto; margin-right: auto;">
+        Clear guidance at every field. Most people finish in under 3 minutes.
+      </p>
+    </div>
+
+    <div style="background: #fff; border: 1.5px solid var(--color-border-brand); border-radius: 8px; padding: 40px 36px; box-shadow: 0 4px 28px rgba(10,37,64,0.08);">
+      <W9FormIsland client:load initialStep={initialStep} initialStage={initialStage} />
+    </div>
+
+    <p style="font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 500; color: var(--color-text-muted); text-align: center; margin: 18px 0 0; line-height: 1.6; display: flex; align-items: center; justify-content: center; gap: 6px;">
+      <Icon name="tabler:shield-check" width="12" height="12" />
+      Your SSN or EIN is used only to generate your PDF and never leaves your browser.
+    </p>
+
+  </div>
+</section>

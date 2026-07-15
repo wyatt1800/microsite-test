@@ -1,21 +1,11 @@
 import { useState } from 'react';
-import { IconCircleCheck } from '@tabler/icons-react';
-import type { W9FormData } from '@/lib/fillW9PDF';
 
 interface LeadCaptureProps {
-  formData: W9FormData;
-  pdfData: W9FormData;
-  onDirectDownload: () => void;
+  onEmailSent: () => void;
+  onDownloadRequested: () => void;
 }
 
-type SubmitState = 'idle' | 'submitting' | 'success' | 'error';
-
-const PERSONA_OPTIONS = [
-  { value: 'freelancer', label: 'Freelancer / independent contractor' },
-  { value: 'small-biz', label: 'Small business owner (LLC or corp)' },
-  { value: 'gig-worker', label: 'Sole proprietor / gig worker' },
-  { value: 'other', label: 'Other' },
-];
+type SubmitState = 'idle' | 'submitting' | 'error';
 
 const FONT = "'Inter', system-ui, sans-serif";
 const FONT_HEADING = "'Poppins', system-ui, sans-serif";
@@ -33,11 +23,10 @@ const inputStyle: React.CSSProperties = {
   color: 'var(--color-text-primary)',
 };
 
-export default function LeadCapture({ pdfData, onDirectDownload }: LeadCaptureProps) {
+export default function LeadCapture({ onEmailSent, onDownloadRequested }: LeadCaptureProps) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [persona, setPersona] = useState('');
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
@@ -60,48 +49,22 @@ export default function LeadCapture({ pdfData, onDirectDownload }: LeadCapturePr
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         email: email.trim(),
-        persona,
       });
       if (result.error) throw new Error('Submission failed');
-      setSubmitState('success');
-      onDirectDownload();
+      onEmailSent();
     } catch {
       setSubmitState('error');
     }
-  }
-
-  if (submitState === 'success') {
-    return (
-      <div
-        style={{
-          backgroundColor: 'var(--color-success-light)',
-          border: '1px solid #86dcb8',
-          borderRadius: 8,
-          padding: '32px 28px',
-          textAlign: 'center',
-        }}
-      >
-        <div style={{ width: 48, height: 48, borderRadius: 9999, backgroundColor: 'var(--color-success)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
-          <IconCircleCheck size={22} color="#fff" />
-        </div>
-        <p style={{ fontFamily: FONT_HEADING, fontWeight: 600, fontSize: 20, color: 'var(--color-text-primary)', margin: '0 0 8px' }}>
-          You're all set.
-        </p>
-        <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 500, color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.6 }}>
-          Your W-9 has been downloaded. Check your email for a copy and a short guide on freelance taxes.
-        </p>
-      </div>
-    );
   }
 
   return (
     <div>
       <div style={{ marginBottom: 20 }}>
         <h3 style={{ fontFamily: FONT_HEADING, fontWeight: 600, fontSize: 22, color: 'var(--color-text-primary)', margin: '0 0 8px' }}>
-          Your W-9 is ready.
+          Get your completed W-9.
         </h3>
         <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 500, color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.6 }}>
-          Enter your email and we'll send you a copy, plus a short guide on what freelancers and contractors need to know about taxes.
+          Enter your email to download your PDF and receive a copy, plus a short guide on what freelancers and contractors need to know about taxes.
         </p>
       </div>
 
@@ -119,7 +82,7 @@ export default function LeadCapture({ pdfData, onDirectDownload }: LeadCapturePr
             color: 'var(--color-error)',
           }}
         >
-          Something went wrong. Your PDF was already downloaded. You can close this or try again.
+          Something went wrong sending your email. You can try again, or download your PDF directly below.
         </div>
       )}
 
@@ -171,24 +134,6 @@ export default function LeadCapture({ pdfData, onDirectDownload }: LeadCapturePr
           />
         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <label style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: 'var(--color-text-primary)' }}>
-            How would you describe yourself?
-          </label>
-          <select
-            value={persona}
-            onChange={e => setPersona(e.target.value)}
-            onFocus={() => setFocusedField('persona')}
-            onBlur={() => setFocusedField(null)}
-            style={focusStyle('persona')}
-          >
-            <option value="">Select one (optional)</option>
-            {PERSONA_OPTIONS.map(o => (
-              <option key={o.value} value={o.value}>{o.label}</option>
-            ))}
-          </select>
-        </div>
-
         <button
           type="submit"
           disabled={submitState === 'submitting'}
@@ -214,7 +159,7 @@ export default function LeadCapture({ pdfData, onDirectDownload }: LeadCapturePr
           Or{' '}
           <button
             type="button"
-            onClick={onDirectDownload}
+            onClick={onDownloadRequested}
             style={{ background: 'none', border: 'none', color: 'var(--color-blue)', cursor: 'pointer', padding: 0, fontSize: 12, textDecoration: 'underline', fontFamily: FONT, fontWeight: 600 }}
           >
             download directly without email

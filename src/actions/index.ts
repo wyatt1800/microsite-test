@@ -6,13 +6,12 @@ const leadSchema = z.object({
   firstName: z.string().max(80).optional().default(''),
   lastName: z.string().max(80).optional().default(''),
   email: z.string().email(),
-  persona: z.string().max(60).optional().default(''),
 });
 
 export const server = {
   captureW9Lead: defineAction({
     input: leadSchema,
-    handler: async ({ firstName, lastName, email, persona }) => {
+    handler: async ({ firstName, lastName, email }) => {
       if (!env.SENDGRID_API_KEY) {
         return { ok: true };
       }
@@ -24,8 +23,8 @@ export const server = {
         to: email,
         from: 'hello@w9helper.com',
         subject: 'Your W-9, plus what freelancers need to know about taxes',
-        text: buildEmailText(firstName, lastName, persona),
-        html: buildEmailHtml(firstName, lastName, persona),
+        text: buildEmailText(firstName, lastName),
+        html: buildEmailHtml(firstName, lastName),
       });
 
       return { ok: true };
@@ -33,7 +32,7 @@ export const server = {
   }),
 };
 
-function buildEmailText(firstName: string, lastName: string, persona: string): string {
+function buildEmailText(firstName: string, lastName: string): string {
   const name = [firstName, lastName].filter(Boolean).join(' ') || 'there';
   return [
     `Hi ${name},`,
@@ -45,22 +44,14 @@ function buildEmailText(firstName: string, lastName: string, persona: string): s
     '3. As a freelancer or contractor, you may owe quarterly estimated taxes. The IRS due dates are April 15, June 15, September 15, and January 15.',
     '4. You can generally deduct legitimate business expenses from your self-employment income.',
     '',
-    persona === 'freelancer' || persona === 'gig-worker'
-      ? 'Since you identified as a freelancer or gig worker, you might also want to set aside roughly 25-30% of your income for taxes as a rule of thumb.'
-      : '',
-    '',
     'Have questions? A free consultation with a tax professional can save you stress and possibly money.',
     '',
     'W9 Helper is a free, independent tool. It is not affiliated with, endorsed by, or connected to the IRS or any government agency. This is not tax advice.',
   ].join('\n');
 }
 
-function buildEmailHtml(firstName: string, lastName: string, persona: string): string {
+function buildEmailHtml(firstName: string, lastName: string): string {
   const name = [firstName, lastName].filter(Boolean).join(' ') || 'there';
-  const freelancerNote =
-    persona === 'freelancer' || persona === 'gig-worker'
-      ? `<p>Since you identified as a freelancer or gig worker, you might want to set aside roughly 25–30% of your income for taxes as a rule of thumb.</p>`
-      : '';
 
   return `<!doctype html>
 <html>
@@ -79,8 +70,6 @@ function buildEmailHtml(firstName: string, lastName: string, persona: string): s
     <li>As a freelancer or contractor, you may owe <strong>quarterly estimated taxes</strong>. Due dates: April 15, June 15, September 15, January 15.</li>
     <li>You can generally deduct <strong>legitimate business expenses</strong> from your self-employment income.</li>
   </ol>
-
-  ${freelancerNote}
 
   <p>Have questions? A free consultation with a tax professional can save you stress and possibly money.</p>
 

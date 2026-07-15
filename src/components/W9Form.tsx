@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { IconShieldCheck, IconFileDownload, IconRefresh, IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import { IconShieldCheck, IconChevronLeft, IconChevronRight, IconInfoCircle, IconArrowRight } from '@tabler/icons-react';
 import type { W9FormData } from '@/lib/fillW9PDF';
 
 const TOTAL_STEPS = 6;
@@ -73,18 +73,72 @@ interface StepProps {
 const FONT = "'Inter', system-ui, sans-serif";
 const FONT_HEADING = "'Poppins', system-ui, sans-serif";
 
+function InfoTooltip({ text }: { text: string }) {
+  const [hoverOpen, setHoverOpen] = useState(false);
+  const [pinnedOpen, setPinnedOpen] = useState(false);
+  const open = hoverOpen || pinnedOpen;
+  return (
+    <span
+      style={{ position: 'relative', display: 'inline-flex' }}
+      onMouseEnter={() => setHoverOpen(true)}
+      onMouseLeave={() => setHoverOpen(false)}
+    >
+      <button
+        type="button"
+        aria-label="More information"
+        onClick={e => { e.preventDefault(); e.stopPropagation(); setPinnedOpen(o => !o); }}
+        onFocus={() => setPinnedOpen(true)}
+        onBlur={() => setPinnedOpen(false)}
+        style={{
+          background: 'none',
+          border: 'none',
+          padding: 0,
+          margin: 0,
+          cursor: 'pointer',
+          display: 'inline-flex',
+          color: 'var(--color-text-muted)',
+          lineHeight: 0,
+        }}
+      >
+        <IconInfoCircle size={15} />
+      </button>
+      {open && (
+        <span
+          role="tooltip"
+          style={{
+            position: 'absolute',
+            bottom: '135%',
+            left: 0,
+            zIndex: 20,
+            width: 240,
+            backgroundColor: 'var(--color-text-primary)',
+            color: '#fff',
+            fontFamily: FONT,
+            fontSize: 12,
+            fontWeight: 500,
+            lineHeight: 1.5,
+            borderRadius: 8,
+            padding: '8px 10px',
+            boxShadow: '0 6px 20px rgba(0,0,0,0.20)',
+          }}
+        >
+          {text}
+        </span>
+      )}
+    </span>
+  );
+}
+
 function FieldWrapper({ label, hint, error, children }: { label: string; hint?: string; error?: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: 'var(--color-text-primary)' }}>
-        {label}
-      </label>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <label style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: 'var(--color-text-primary)' }}>
+          {label}
+        </label>
+        {hint && <InfoTooltip text={hint} />}
+      </div>
       {children}
-      {hint && !error && (
-        <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: 'var(--color-text-muted)', lineHeight: 1.5 }}>
-          {hint}
-        </p>
-      )}
       {error && (
         <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 600, color: 'var(--color-error)', lineHeight: 1.5 }}>
           {error}
@@ -195,9 +249,12 @@ function Step2({ data, onChange, errors }: StepProps) {
             style={{ marginTop: 3, accentColor: 'var(--color-blue)', flexShrink: 0 }}
           />
           <div>
-            <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: 'var(--color-text-primary)', margin: 0 }}>
-              {cls.label}
-            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: 'var(--color-text-primary)', margin: 0 }}>
+                {cls.label}
+              </p>
+              <InfoTooltip text={cls.hint} />
+            </div>
             {data.taxClassification === cls.value && (
               <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: 'var(--color-text-secondary)', margin: '4px 0 0', lineHeight: 1.5 }}>
                 {cls.hint}
@@ -230,7 +287,7 @@ function Step3({ data, onChange }: StepProps) {
       </div>
       <FieldWrapper
         label="Exempt payee code (optional)"
-        hint="Typically blank. Certain entities listed in IRS W-9 instructions qualify."
+        hint="A code showing you're exempt from backup withholding on 1099 reporting — used by entities like corporations, tax-exempt organizations, and IRAs. Each entity type has its own code (1-13) listed in the IRS W-9 instructions."
       >
         <TextInput
           value={data.exemptPayeeCode}
@@ -240,7 +297,7 @@ function Step3({ data, onChange }: StepProps) {
       </FieldWrapper>
       <FieldWrapper
         label="Exemption from FATCA reporting code (optional)"
-        hint="Typically blank. Applies to payments by foreign financial institutions."
+        hint="A code showing you're exempt from FATCA (Foreign Account Tax Compliance Act) reporting — generally used by U.S. payees whose accounts are maintained in the United States. Each exempt category has its own code (A-M) listed in the IRS W-9 instructions."
       >
         <TextInput
           value={data.fatcaCode}
@@ -268,11 +325,11 @@ function Step4({ data, onChange, errors }: StepProps) {
       <FieldWrapper label="Street address" hint="Include apartment or suite number if applicable." error={errors.streetAddress}>
         <TextInput value={data.streetAddress} onChange={v => onChange('streetAddress', v)} placeholder="e.g. 123 Main St, Apt 4B" />
       </FieldWrapper>
-      <FieldWrapper label="City" error={errors.city}>
+      <FieldWrapper label="City" hint="The city for the mailing address above, as it would appear on mail sent to you." error={errors.city}>
         <TextInput value={data.city} onChange={v => onChange('city', v)} placeholder="e.g. Austin" />
       </FieldWrapper>
       <div className="grid grid-cols-2 gap-4">
-        <FieldWrapper label="State" error={errors.state}>
+        <FieldWrapper label="State" hint="The two-letter abbreviation for the state in your mailing address." error={errors.state}>
           <select
             value={data.state}
             onChange={e => onChange('state', e.target.value)}
@@ -286,7 +343,7 @@ function Step4({ data, onChange, errors }: StepProps) {
             ))}
           </select>
         </FieldWrapper>
-        <FieldWrapper label="ZIP code" error={errors.zip}>
+        <FieldWrapper label="ZIP code" hint="Your 5-digit ZIP code. Add the extra 4 digits (ZIP+4) if you know them." error={errors.zip}>
           <TextInput
             value={data.zip}
             onChange={v => onChange('zip', v.replace(/\D/g, '').slice(0, 10))}
@@ -336,6 +393,13 @@ function Step5({ data, onChange, errors }: StepProps) {
             <span style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: 'var(--color-text-primary)' }}>
               {type === 'ssn' ? 'Social Security Number (SSN)' : 'Employer Identification Number (EIN)'}
             </span>
+            <InfoTooltip
+              text={
+                type === 'ssn'
+                  ? 'Use your 9-digit Social Security Number if you are an individual or sole proprietor without a separate business EIN.'
+                  : 'Use your 9-digit Employer Identification Number if your business has one, such as an LLC, corporation, or partnership.'
+              }
+            />
           </label>
         ))}
       </div>
@@ -382,67 +446,109 @@ function Step5({ data, onChange, errors }: StepProps) {
   );
 }
 
-interface ReviewRowProps {
+interface ReviewSectionProps {
   label: string;
   value: string;
-  onEdit: () => void;
+  expanded: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
 }
 
-function ReviewRow({ label, value, onEdit }: ReviewRowProps) {
+function ReviewSection({ label, value, expanded, onToggle, children }: ReviewSectionProps) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--color-border-brand)' }}>
-      <div>
-        <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: 'var(--color-text-muted)', margin: '0 0 2px' }}>{label}</p>
-        <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: 'var(--color-text-primary)', margin: 0 }}>{value || '—'}</p>
+    <div style={{ padding: '10px 0', borderBottom: '1px solid var(--color-border-brand)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div>
+          <p style={{ fontFamily: FONT, fontSize: 12, fontWeight: 500, color: 'var(--color-text-muted)', margin: '0 0 2px' }}>{label}</p>
+          <p style={{ fontFamily: FONT, fontSize: 14, fontWeight: 600, color: 'var(--color-text-primary)', margin: 0 }}>{value || '—'}</p>
+        </div>
+        <button
+          onClick={onToggle}
+          style={{
+            fontFamily: FONT,
+            fontSize: 12,
+            fontWeight: 700,
+            color: 'var(--color-blue)',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '4px 10px',
+            borderRadius: 8,
+            flexShrink: 0,
+          }}
+          className="hover:bg-blue-50 transition-colors"
+        >
+          {expanded ? 'Done' : 'Edit'}
+        </button>
       </div>
-      <button
-        onClick={onEdit}
-        style={{
-          fontFamily: FONT,
-          fontSize: 12,
-          fontWeight: 700,
-          color: 'var(--color-blue)',
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          padding: '4px 10px',
-          borderRadius: 8,
-        }}
-        className="hover:bg-blue-50 transition-colors"
-      >
-        Edit
-      </button>
+      {expanded && (
+        <div style={{ marginTop: 16, paddingTop: 4 }}>
+          {children}
+        </div>
+      )}
     </div>
   );
 }
 
-function Step6({ data, onGoToStep, onDownload, isGenerating }: {
+function Step6({ data, onChange, errors, onContinue }: {
   data: W9FormData;
-  onGoToStep: (step: number) => void;
-  onDownload: () => void;
-  isGenerating: boolean;
+  onChange: (field: keyof W9FormData, value: string) => void;
+  errors: Partial<Record<keyof W9FormData, string>>;
+  onContinue: () => void;
 }) {
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
+
+  function toggleSection(id: string) {
+    setExpandedSection(current => (current === id ? null : id));
+  }
+
   const classLabel = TAX_CLASSIFICATIONS.find(c => c.value === data.taxClassification)?.label ?? data.taxClassification;
   const address = [data.streetAddress, data.city, data.state, data.zip].filter(Boolean).join(', ');
+  const exemptions = [data.exemptPayeeCode && `Payee code: ${data.exemptPayeeCode}`, data.fatcaCode && `FATCA: ${data.fatcaCode}`].filter(Boolean).join(' · ');
+  const stepProps: StepProps = { data, onChange, errors };
 
   return (
-    <div className="flex flex-col gap-4">
-      <ReviewRow label="Legal name" value={data.legalName} onEdit={() => onGoToStep(1)} />
-      <ReviewRow label="Business name / DBA" value={data.businessName || '(none)'} onEdit={() => onGoToStep(1)} />
-      <ReviewRow label="Tax classification" value={classLabel} onEdit={() => onGoToStep(2)} />
-      <ReviewRow label="Address" value={address} onEdit={() => onGoToStep(4)} />
-      <ReviewRow
+    <div className="flex flex-col gap-1">
+      <ReviewSection
+        label="Legal name & business"
+        value={[data.legalName, data.businessName].filter(Boolean).join(' · ')}
+        expanded={expandedSection === 'name'}
+        onToggle={() => toggleSection('name')}
+      >
+        <Step1 {...stepProps} />
+      </ReviewSection>
+      <ReviewSection
+        label="Tax classification"
+        value={classLabel}
+        expanded={expandedSection === 'classification'}
+        onToggle={() => toggleSection('classification')}
+      >
+        <Step2 {...stepProps} />
+      </ReviewSection>
+      <ReviewSection
+        label="Exemptions"
+        value={exemptions || '(none)'}
+        expanded={expandedSection === 'exemptions'}
+        onToggle={() => toggleSection('exemptions')}
+      >
+        <Step3 {...stepProps} />
+      </ReviewSection>
+      <ReviewSection
+        label="Address"
+        value={address}
+        expanded={expandedSection === 'address'}
+        onToggle={() => toggleSection('address')}
+      >
+        <Step4 {...stepProps} />
+      </ReviewSection>
+      <ReviewSection
         label={data.tinType === 'ssn' ? 'Social Security Number' : 'Employer Identification Number'}
         value={maskTin(data.tin, data.tinType)}
-        onEdit={() => onGoToStep(5)}
-      />
-      {(data.exemptPayeeCode || data.fatcaCode) && (
-        <ReviewRow
-          label="Exemptions"
-          value={[data.exemptPayeeCode && `Payee code: ${data.exemptPayeeCode}`, data.fatcaCode && `FATCA: ${data.fatcaCode}`].filter(Boolean).join(' · ')}
-          onEdit={() => onGoToStep(3)}
-        />
-      )}
+        expanded={expandedSection === 'tin'}
+        onToggle={() => toggleSection('tin')}
+      >
+        <Step5 {...stepProps} />
+      </ReviewSection>
 
       <div className="mt-2 flex flex-col gap-3">
         <div
@@ -457,44 +563,34 @@ function Step6({ data, onGoToStep, onDownload, isGenerating }: {
             Electronic signature certification
           </p>
           <p style={{ fontFamily: FONT, fontSize: 12.5, fontWeight: 500, color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.6 }}>
-            By clicking Download, you certify under penalties of perjury that the information above is accurate and complete. Your full legal name —{' '}
-            <strong>{data.legalName}</strong> — will be entered as your typed signature on the W-9.
+            By clicking Continue, you certify under penalties of perjury that the information above is accurate and complete. Your full legal name,{' '}
+            <strong>{data.legalName}</strong>, will be entered as your typed signature on the W-9.
           </p>
         </div>
 
         <button
-          onClick={onDownload}
-          disabled={isGenerating}
+          onClick={onContinue}
           style={{
             fontFamily: FONT_HEADING,
             fontWeight: 600,
             fontSize: 15,
-            backgroundColor: isGenerating ? '#7DD3C8' : 'var(--color-teal)',
+            backgroundColor: 'var(--color-teal)',
             color: '#fff',
             border: 'none',
             borderRadius: 8,
             padding: '14px 24px',
-            cursor: isGenerating ? 'wait' : 'pointer',
+            cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: 8,
             transition: 'background-color 0.15s',
             width: '100%',
-            boxShadow: isGenerating ? 'none' : '0 4px 16px rgba(15,118,110,0.30)',
+            boxShadow: '0 4px 16px rgba(15,118,110,0.30)',
           }}
         >
-          {isGenerating ? (
-            <>
-              <IconRefresh size={16} style={{ animation: 'spin 1s linear infinite' }} />
-              Generating PDF...
-            </>
-          ) : (
-            <>
-              <IconFileDownload size={16} />
-              Download your W-9 PDF
-            </>
-          )}
+          Continue
+          <IconArrowRight size={16} />
         </button>
       </div>
     </div>
@@ -526,24 +622,42 @@ function validateStep(step: number, data: W9FormData): Partial<Record<keyof W9Fo
   return errors;
 }
 
-const STEP_TITLES = [
-  'Name & business',
-  'Tax classification',
-  'Exemptions',
-  'Address',
-  'Taxpayer ID',
-  'Review & download',
+const STEP_INFO: { title: string; description: string }[] = [
+  {
+    title: 'Tell us who this W-9 is for',
+    description: 'Enter the legal name that matches your tax return, plus a business name if you operate under one.',
+  },
+  {
+    title: 'How is your business taxed?',
+    description: 'Choose the federal tax classification that matches your business structure.',
+  },
+  {
+    title: 'Exemptions',
+    description: 'Only certain entities need these boxes filled in — most people can leave both blank and continue.',
+  },
+  {
+    title: 'Where should the IRS mail you?',
+    description: 'Enter the address you use to receive tax correspondence and information returns.',
+  },
+  {
+    title: 'Your taxpayer identification number',
+    description: 'Provide your SSN or EIN so payers can correctly report income paid to you.',
+  },
+  {
+    title: 'Review your W-9',
+    description: 'Double-check every field below, click Edit to make changes right here, then continue to get your completed PDF.',
+  },
 ];
 
 interface W9FormProps {
+  step: number;
+  onStepChange: (step: number) => void;
   onPdfReady: (data: W9FormData) => void;
 }
 
-export default function W9Form({ onPdfReady }: W9FormProps) {
-  const [step, setStep] = useState(1);
+export default function W9Form({ step, onStepChange, onPdfReady }: W9FormProps) {
   const [formData, setFormData] = useState<W9FormData>(emptyForm);
   const [errors, setErrors] = useState<Partial<Record<keyof W9FormData, string>>>({});
-  const [isGenerating, setIsGenerating] = useState(false);
 
   const updateField = useCallback((field: keyof W9FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -557,41 +671,33 @@ export default function W9Form({ onPdfReady }: W9FormProps) {
       return;
     }
     setErrors({});
-    setStep(s => Math.min(s + 1, TOTAL_STEPS));
+    onStepChange(Math.min(step + 1, TOTAL_STEPS));
   }
 
   function goBack() {
     setErrors({});
-    setStep(s => Math.max(s - 1, 1));
+    onStepChange(Math.max(step - 1, 1));
   }
 
-  async function handleDownload() {
-    setIsGenerating(true);
-    try {
-      const { fillW9PDF, downloadPDF } = await import('@/lib/fillW9PDF');
-      const pdfBytes = await fillW9PDF(formData);
-      const safeName = formData.legalName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-      downloadPDF(pdfBytes, `w9_${safeName}.pdf`);
-      onPdfReady(formData);
-    } finally {
-      setIsGenerating(false);
-    }
+  function handleContinue() {
+    onPdfReady(formData);
   }
 
   const stepProps: StepProps = { data: formData, onChange: updateField, errors };
 
   return (
     <div style={{ fontFamily: FONT }}>
-      {/* Progress bar */}
-      <div className="mb-6">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-muted)' }}>
-            Step {step} of {TOTAL_STEPS}
-          </span>
-          <span style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)' }}>
-            {STEP_TITLES[step - 1]}
-          </span>
-        </div>
+      {/* Step header */}
+      <div className="mb-6" style={{ textAlign: 'left' }}>
+        <h2 style={{ fontFamily: FONT_HEADING, fontWeight: 600, fontSize: 20, color: 'var(--color-text-primary)', margin: '0 0 6px', lineHeight: 1.3 }}>
+          {STEP_INFO[step - 1].title}
+        </h2>
+        <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, color: 'var(--color-blue)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          Step {step} of {TOTAL_STEPS}
+        </span>
+        <p style={{ fontFamily: FONT, fontSize: 13.5, fontWeight: 500, color: 'var(--color-text-secondary)', margin: '6px 0 14px', lineHeight: 1.6 }}>
+          {STEP_INFO[step - 1].description}
+        </p>
         <div style={{ height: 6, backgroundColor: 'var(--color-border-brand)', borderRadius: 9999, overflow: 'hidden' }}>
           <div
             style={{
@@ -615,9 +721,9 @@ export default function W9Form({ onPdfReady }: W9FormProps) {
         {step === 6 && (
           <Step6
             data={formData}
-            onGoToStep={setStep}
-            onDownload={handleDownload}
-            isGenerating={isGenerating}
+            onChange={updateField}
+            errors={errors}
+            onContinue={handleContinue}
           />
         )}
       </div>
