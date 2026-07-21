@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import W9Form from './W9Form';
 import LeadCapture from './LeadCapture';
+import IncomeEstimator from './IncomeEstimator';
 import UpsellCTA from './UpsellCTA';
 import type { W9FormData } from '@/lib/fillW9PDF';
 import { pushFormStepView } from '@/lib/analytics';
+import { variantForTaxClassification } from '@/lib/upsellVariant';
 
-type Stage = 'form' | 'lead-capture' | 'upsell';
+type Stage = 'form' | 'lead-capture' | 'income' | 'upsell';
 type DeliveryMethod = 'email' | 'download';
 
 const STEP_NAMES = [
@@ -19,12 +21,14 @@ const STEP_NAMES = [
 
 function pathForStage(step: number, stage: Stage): string {
   if (stage === 'upsell') return '/form/next-steps';
+  if (stage === 'income') return '/form/savings-estimate';
   if (stage === 'lead-capture') return '/form/complete';
   return step === 1 ? '/form' : `/form/step-${step}`;
 }
 
 function parsePath(pathname: string): { step: number; stage: Stage } | null {
   if (pathname === '/form/next-steps') return { step: 6, stage: 'upsell' };
+  if (pathname === '/form/savings-estimate') return { step: 6, stage: 'income' };
   if (pathname === '/form/complete') return { step: 6, stage: 'lead-capture' };
   if (pathname === '/form' || pathname === '/form/') return { step: 1, stage: 'form' };
   const match = pathname.match(/^\/form\/step-([1-6])\/?$/);
@@ -42,6 +46,7 @@ export default function W9FormIsland({ initialStep = 1, initialStage = 'form' }:
   const [step, setStep] = useState(initialStep);
   const [completedData, setCompletedData] = useState<W9FormData | null>(null);
   const [deliveryMethod, setDeliveryMethod] = useState<DeliveryMethod>('download');
+  const [estimatedIncome, setEstimatedIncome] = useState<number | null>(null);
 
   useEffect(() => {
     const path = pathForStage(step, stage);
@@ -49,7 +54,9 @@ export default function W9FormIsland({ initialStep = 1, initialStage = 'form' }:
       window.history.pushState({ step, stage }, '', path);
     }
     if (stage === 'upsell') {
-      pushFormStepView(8, 'next-steps');
+      pushFormStepView(9, 'next-steps');
+    } else if (stage === 'income') {
+      pushFormStepView(8, 'savings-estimate');
     } else if (stage === 'lead-capture') {
       pushFormStepView(7, 'get-your-pdf');
     } else {
@@ -75,7 +82,7 @@ export default function W9FormIsland({ initialStep = 1, initialStage = 'form' }:
 
   const handleEmailSent = useCallback(() => {
     setDeliveryMethod('email');
-    setStage('upsell');
+    setStage('income');
   }, []);
 
   async function handleDownloadRequested() {
@@ -85,11 +92,31 @@ export default function W9FormIsland({ initialStep = 1, initialStage = 'form' }:
     const safeName = completedData.legalName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
     downloadPDF(pdfBytes, `w9_${safeName}.pdf`);
     setDeliveryMethod('download');
-    setStage('upsell');
+    setStage('income');
   }
 
+  const handleIncomeContinue = useCallback((income: number) => {
+    setEstimatedIncome(income);
+    setStage('upsell');
+  }, []);
+
+  const handleIncomeSkip = useCallback(() => {
+    setEstimatedIncome(null);
+    setStage('upsell');
+  }, []);
+
   if (stage === 'upsell' && completedData) {
-    return <UpsellCTA formData={completedData} deliveryMethod={deliveryMethod} />;
+    return <UpsellCTA formData={completedData} deliveryMethod={deliveryMethod} estimatedIncome={estimatedIncome} />;
+  }
+
+  if (stage === 'income' && completedData) {
+    return (
+      <IncomeEstimator
+        variant={variantForTaxClassification(completedData.taxClassification)}
+        onContinue={handleIncomeContinue}
+        onSkip={handleIncomeSkip}
+      />
+    );
   }
 
   if (stage === 'lead-capture' && completedData) {

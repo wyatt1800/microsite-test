@@ -1,5 +1,15 @@
 import { useState, useCallback } from 'react';
-import { IconShieldCheck, IconChevronLeft, IconChevronRight, IconInfoCircle, IconArrowRight } from '@tabler/icons-react';
+import {
+  IconShieldCheck,
+  IconChevronLeft,
+  IconChevronRight,
+  IconInfoCircle,
+  IconArrowRight,
+  IconEye,
+  IconEyeOff,
+  IconLock,
+  IconServerOff,
+} from '@tabler/icons-react';
 import type { W9FormData } from '@/lib/fillW9PDF';
 
 const TOTAL_STEPS = 6;
@@ -357,6 +367,7 @@ function Step4({ data, onChange, errors }: StepProps) {
 
 function Step5({ data, onChange, errors }: StepProps) {
   const [focused, setFocused] = useState(false);
+  const [tinVisible, setTinVisible] = useState(false);
 
   function handleTinChange(raw: string) {
     const formatted = data.tinType === 'ssn' ? formatSsn(raw) : formatEin(raw);
@@ -409,38 +420,76 @@ function Step5({ data, onChange, errors }: StepProps) {
         hint="Your SSN/EIN is used only to generate your PDF and is never sent to our servers."
         error={errors.tin}
       >
-        <input
-          type="text"
-          inputMode="numeric"
-          value={data.tin}
-          onChange={e => handleTinChange(e.target.value)}
-          placeholder={data.tinType === 'ssn' ? 'XXX-XX-XXXX' : 'XX-XXXXXXX'}
-          onFocus={() => setFocused(true)}
-          onBlur={() => setFocused(false)}
-          style={{
-            ...inputStyle,
-            letterSpacing: '0.08em',
-            borderColor: focused ? 'var(--color-blue)' : errors.tin ? 'var(--color-error)' : 'var(--color-border-brand)',
-            boxShadow: focused ? '0 0 0 3px rgba(21,84,209,0.10)' : 'none',
-          }}
-        />
+        <div style={{ position: 'relative' }}>
+          <input
+            type={tinVisible ? 'text' : 'password'}
+            inputMode="numeric"
+            autoComplete="off"
+            value={data.tin}
+            onChange={e => handleTinChange(e.target.value)}
+            placeholder={data.tinType === 'ssn' ? 'XXX-XX-XXXX' : 'XX-XXXXXXX'}
+            onFocus={() => setFocused(true)}
+            onBlur={() => setFocused(false)}
+            style={{
+              ...inputStyle,
+              paddingRight: 42,
+              letterSpacing: '0.08em',
+              borderColor: focused ? 'var(--color-blue)' : errors.tin ? 'var(--color-error)' : 'var(--color-border-brand)',
+              boxShadow: focused ? '0 0 0 3px rgba(21,84,209,0.10)' : 'none',
+            }}
+          />
+          <button
+            type="button"
+            aria-label={tinVisible ? 'Hide number' : 'Show number'}
+            onClick={() => setTinVisible(v => !v)}
+            style={{
+              position: 'absolute',
+              right: 12,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              background: 'none',
+              border: 'none',
+              padding: 2,
+              margin: 0,
+              cursor: 'pointer',
+              display: 'flex',
+              color: 'var(--color-text-muted)',
+              lineHeight: 0,
+            }}
+          >
+            {tinVisible ? <IconEyeOff size={17} /> : <IconEye size={17} />}
+          </button>
+        </div>
       </FieldWrapper>
 
       <div
         style={{
-          display: 'flex',
-          alignItems: 'flex-start',
-          gap: 10,
-          padding: '12px 16px',
+          padding: '14px 16px',
           backgroundColor: 'var(--color-teal-light)',
           border: '1px solid #99f6e4',
           borderRadius: 8,
         }}
       >
-        <IconShieldCheck size={16} color="var(--color-teal)" style={{ marginTop: 2, flexShrink: 0 }} />
-        <p style={{ fontFamily: FONT, fontSize: 12.5, fontWeight: 500, color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.6 }}>
-          Your taxpayer ID stays in your browser and is used only to fill your PDF. It is never transmitted to any server.
-        </p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+          <IconShieldCheck size={17} color="var(--color-teal)" style={{ flexShrink: 0 }} />
+          <p style={{ fontFamily: FONT, fontSize: 13, fontWeight: 700, color: 'var(--color-teal)', margin: 0 }}>
+            Your {data.tinType === 'ssn' ? 'SSN' : 'EIN'} is protected
+          </p>
+        </div>
+        <div className="flex flex-col gap-2">
+          {[
+            { icon: IconLock, text: 'Hidden by default — masked like a password field until you choose to reveal it.' },
+            { icon: IconServerOff, text: 'Processed entirely in your browser. It is never uploaded or transmitted to any server.' },
+            { icon: IconEyeOff, text: 'Not stored, logged, or cached anywhere — it disappears when you close this tab.' },
+          ].map(item => (
+            <div key={item.text} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+              <item.icon size={14} color="var(--color-teal)" style={{ marginTop: 2, flexShrink: 0 }} />
+              <p style={{ fontFamily: FONT, fontSize: 12.5, fontWeight: 500, color: 'var(--color-text-secondary)', margin: 0, lineHeight: 1.6 }}>
+                {item.text}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

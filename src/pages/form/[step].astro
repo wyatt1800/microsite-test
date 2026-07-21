@@ -6,7 +6,7 @@ import W9FormSection from '../../components/W9FormSection.astro';
 
 interface StepParams {
   initialStep: number;
-  initialStage?: 'form' | 'lead-capture' | 'upsell';
+  initialStage?: 'form' | 'lead-capture' | 'income' | 'upsell';
 }
 
 export function getStaticPaths() {
@@ -17,6 +17,7 @@ export function getStaticPaths() {
     { params: { step: 'step-5' }, props: { initialStep: 5 } },
     { params: { step: 'step-6' }, props: { initialStep: 6 } },
     { params: { step: 'complete' }, props: { initialStep: 6, initialStage: 'lead-capture' } },
+    { params: { step: 'savings-estimate' }, props: { initialStep: 6, initialStage: 'income' } },
     { params: { step: 'next-steps' }, props: { initialStep: 6, initialStage: 'upsell' } },
   ];
 }

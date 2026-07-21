@@ -1,79 +1,8 @@
 import { useState, useMemo } from 'react';
 import type { CSSProperties } from 'react';
 import { IconCurrencyDollar } from '@tabler/icons-react';
-
-type FilingStatus = 'single' | 'mfj' | 'mfs' | 'hoh';
-type Bracket = [number, number];
-
-const STANDARD_DEDUCTIONS: Record<FilingStatus, number> = {
-  single: 14600,
-  mfj: 29200,
-  mfs: 14600,
-  hoh: 21900,
-};
-
-const TAX_BRACKETS: Record<FilingStatus, Bracket[]> = {
-  single: [
-    [11600, 0.10], [47150, 0.12], [100525, 0.22],
-    [191950, 0.24], [243725, 0.32], [609350, 0.35], [Infinity, 0.37],
-  ],
-  mfj: [
-    [23200, 0.10], [94300, 0.12], [201050, 0.22],
-    [383900, 0.24], [487450, 0.32], [731200, 0.35], [Infinity, 0.37],
-  ],
-  mfs: [
-    [11600, 0.10], [47150, 0.12], [100525, 0.22],
-    [191950, 0.24], [243725, 0.32], [365600, 0.35], [Infinity, 0.37],
-  ],
-  hoh: [
-    [16550, 0.10], [63100, 0.12], [100500, 0.22],
-    [191950, 0.24], [243700, 0.32], [609350, 0.35], [Infinity, 0.37],
-  ],
-};
-
-const SS_WAGE_BASE = 168600;
-
-function calcFederalIncomeTax(taxableIncome: number, brackets: Bracket[]): number {
-  let tax = 0;
-  let lowerBound = 0;
-  for (const [upperBound, rate] of brackets) {
-    if (taxableIncome <= lowerBound) break;
-    const effectiveUpper = upperBound === Infinity ? taxableIncome : upperBound;
-    const slice = Math.min(taxableIncome, effectiveUpper) - lowerBound;
-    tax += slice * rate;
-    lowerBound = upperBound;
-  }
-  return tax;
-}
-
-function calcSETax(grossSEIncome: number): number {
-  const netSE = grossSEIncome * 0.9235;
-  const ssTax = Math.min(netSE, SS_WAGE_BASE) * 0.124;
-  const medTax = netSE * 0.029;
-  return ssTax + medTax;
-}
-
-function estimateTax(seIncome: number, w2Income: number, status: FilingStatus) {
-  const seTax = calcSETax(seIncome);
-  const seDeduction = seTax * 0.5;
-  const agi = seIncome + w2Income - seDeduction;
-  const taxableIncome = Math.max(0, agi - STANDARD_DEDUCTIONS[status]);
-  const federalTax = calcFederalIncomeTax(taxableIncome, TAX_BRACKETS[status]);
-  const totalTax = seTax + federalTax;
-  const totalIncome = seIncome + w2Income;
-  return {
-    seTax,
-    federalTax,
-    totalTax,
-    quarterlyPayment: totalTax / 4,
-    effectiveRate: totalIncome > 0 ? totalTax / totalIncome : 0,
-  };
-}
-
-const usd = (n: number) =>
-  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
-
-const pct = (n: number) => `${(n * 100).toFixed(1)}%`;
+import { estimateTax, usd, pct } from '@/lib/taxEstimate';
+import type { FilingStatus } from '@/lib/taxEstimate';
 
 const BASE_FONT: CSSProperties = { fontFamily: "'Inter', system-ui, sans-serif" };
 const HEADING_FONT: CSSProperties = { fontFamily: "'Poppins', system-ui, sans-serif" };

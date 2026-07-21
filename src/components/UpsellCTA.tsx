@@ -7,16 +7,21 @@ import {
   IconCalendarStats,
   IconUserCheck,
   IconArrowRight,
+  IconSparkles,
 } from '@tabler/icons-react';
 import type { W9FormData } from '@/lib/fillW9PDF';
 import { pushUpsellClick, pushUpsellView } from '@/lib/analytics';
+import type { UpsellVariant } from '@/lib/upsellVariant';
+import { variantForTaxClassification } from '@/lib/upsellVariant';
+import { estimateSCorpSavings, estimateDeductionSavings, usd } from '@/lib/taxEstimate';
 
 interface UpsellCTAProps {
   formData: W9FormData;
   deliveryMethod: 'email' | 'download';
+  estimatedIncome?: number | null;
 }
 
-type Variant = 'form-entity' | 'optimize-taxes';
+type Variant = UpsellVariant;
 
 const FONT = "'Inter', system-ui, sans-serif";
 const FONT_HEADING = "'Poppins', system-ui, sans-serif";
@@ -63,15 +68,16 @@ const VARIANT_CONTENT: Record<
   },
 };
 
-function variantForTaxClassification(taxClassification: string): Variant {
-  return taxClassification === 'individual' ? 'form-entity' : 'optimize-taxes';
+function estimateSavings(variant: Variant, income: number): number {
+  return variant === 'form-entity' ? estimateSCorpSavings(income) : estimateDeductionSavings(income);
 }
 
-export default function UpsellCTA({ formData, deliveryMethod }: UpsellCTAProps) {
+export default function UpsellCTA({ formData, deliveryMethod, estimatedIncome }: UpsellCTAProps) {
   const variant = variantForTaxClassification(formData.taxClassification);
   const content = VARIANT_CONTENT[variant];
   const confirmationText =
     deliveryMethod === 'email' ? 'Your W-9 has been emailed to you.' : 'Your W-9 has been downloaded.';
+  const savings = estimatedIncome ? estimateSavings(variant, estimatedIncome) : 0;
 
   useEffect(() => {
     pushUpsellView(variant);
@@ -112,6 +118,32 @@ export default function UpsellCTA({ formData, deliveryMethod }: UpsellCTAProps) 
         >
           <span style={{ fontFamily: FONT, fontSize: 12, fontWeight: 700, color: '#fff' }}>{content.badge}</span>
         </div>
+
+        {savings > 0 && (
+          <div
+            style={{
+              display: 'inline-flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              background: 'rgba(255,255,255,0.08)',
+              border: '1px solid rgba(255,255,255,0.14)',
+              borderRadius: 10,
+              padding: '10px 18px',
+              marginBottom: 20,
+              maxWidth: 440,
+            }}
+          >
+            <IconSparkles size={16} color="#fbbf24" />
+            <span style={{ fontFamily: FONT, fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.85)' }}>
+              Based on {usd(estimatedIncome ?? 0)} in income, you could save an estimated
+            </span>
+            <span style={{ fontFamily: FONT_HEADING, fontSize: 18, fontWeight: 700, color: '#fff' }}>
+              {usd(savings)}/yr
+            </span>
+          </div>
+        )}
 
         <h2
           style={{
