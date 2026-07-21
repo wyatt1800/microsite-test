@@ -7,12 +7,16 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 import awsAmplify from 'astro-aws-amplify';
+import vercel from '@astrojs/vercel';
+
+// Vercel sets process.env.VERCEL automatically — use the Vercel adapter there.
+const adapter = process.env.VERCEL ? vercel() : awsAmplify();
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://w9helper.com',
   output: 'static',
-  adapter: awsAmplify(),
+  adapter,
   vite: {
     plugins: [tailwindcss()],
   },
